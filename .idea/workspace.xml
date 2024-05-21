@@ -5,19 +5,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="ac942d2a-5991-425e-ae1a-ade6e9528d9b" name="Changes" comment="make some project structure">
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/pom.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/GenerateCSV.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/GenerateLine.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/Main.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomBigDecimal.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomDate.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomInteger.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomParagraphType.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomString.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/Generable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomActualDataCategory.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomLong.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/GenerateLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/GenerateLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomBigDecimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomBigDecimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomDate.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomDate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomInteger.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomInteger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomString.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomString.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,6 +23,7 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
+        <option value="Interface" />
         <option value="Class" />
       </list>
     </option>
@@ -49,28 +46,17 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "jdk.selected.JAVA_MODULE": "17"
+    "jdk.selected.JAVA_MODULE": "17",
+    "spring.configuration.checksum": "84c19840c91b4aef2e4d14f392818f49"
   }
 }]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\Artix-Laptok\IdeaProjects\CSVValidator\CSVValidator\src\main\java" />
     </key>
-  </component>
-  <component name="RunManager">
-    <configuration default="true" type="JetRunConfigurationType">
-      <module name="Magisterka" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
-      <module name="Magisterka" />
-      <option name="filePath" />
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="randomizer" />
+    </key>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
@@ -81,7 +67,16 @@
       <option name="presentableId" value="Default" />
       <updated>1710963112685</updated>
       <workItem from="1710963114194" duration="332000" />
+      <workItem from="1716316722458" duration="4717000" />
     </task>
+    <task id="LOCAL-00001" summary="make some project structure">
+      <created>1710965138326</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1710965138326</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

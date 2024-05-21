@@ -2,7 +2,7 @@ package randomizer;
 
 import java.util.Random;
 
-public class RandomInteger implements Generable<Integer> {
+public class RandomLong implements Generable<Long> {
     /**
      * Generate random positive Integer
      *
@@ -10,9 +10,9 @@ public class RandomInteger implements Generable<Integer> {
      * @return generated Integer
      */
     @Override
-    public Integer generate(String[] args) {
+    public Long generate(String[] args) {
         Random random = new Random();
-        int result = random.nextInt();
+        long result = random.nextLong();
         return result < 0 ? -result : result;
     }
 }
