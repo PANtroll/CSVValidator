@@ -15,7 +15,7 @@ public class RandomBigDecimal implements Generable<BigDecimal> {
         BigDecimal max = new BigDecimal(range);
         BigDecimal randFromDouble = BigDecimal.valueOf(Math.random());
         BigDecimal actualRandomDec = randFromDouble.divide(max);
-        return actualRandomDec.setScale(scale);
+        return actualRandomDec.setScale(scale, BigDecimal.ROUND_FLOOR);
     }
 
 

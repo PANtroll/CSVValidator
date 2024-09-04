@@ -12,7 +12,15 @@ public class RandomInteger implements Generable<Integer> {
     @Override
     public Integer generate(String[] args) {
         Random random = new Random();
-        int result = random.nextInt();
-        return result < 0 ? -result : result;
+        String maxValueStr = args[0];
+        try {
+            int maxValue = Integer.parseInt(maxValueStr);
+            if (maxValue <= 0) {
+                return 0;
+            }
+            return random.nextInt(maxValue);
+        } catch (Exception e) {
+            throw new IllegalArgumentException(e);
+        }
     }
 }

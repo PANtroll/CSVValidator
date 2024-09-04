@@ -1,38 +1,57 @@
 import randomizer.*;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 
 public class GenerateLine {
-    private final List<String> keyIds = new ArrayList<>();
+    private static final String SECTION_MASTER_DATA = "M";
+    private static final String SECTION_ACTUAL_DATA = "A";
     private static final String SEPARATOR = "|";
+    private static final String NEW_LINE = "\r\n";
     private final Generable<Integer> randomInt = new RandomInteger();
-    private final Generable<Long> randomLong = new RandomLong();
+    private final Generable<String> randomKeyId = new RandomKeyId();
+    private final Geterable<String> randomKeyIdGetter = (Geterable<String>) randomKeyId;
     private final Generable<BigDecimal> randomBigDecimal = new RandomBigDecimal();
+    private final Generable<String> randomString = new RandomString();
     private final Generable<String> randomType = new RandomActualDataType();
 
-    public String generateLineSectionFirst() {
+    public String generateMetaData(){
+        StringBuilder stringBuilder = new StringBuilder();
 
-        return null;
+
+        return stringBuilder.toString();
+    }
+
+    public String generateLineSectionFirst() {
+        StringBuilder stringBuilder = new StringBuilder();
+        stringBuilder.append(SECTION_MASTER_DATA);
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomKeyId.generate(new String[]{}));
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomString.generate(new String[]{"20"}));
+//        stringBuilder.append(SEPARATOR);
+
+        stringBuilder.append(NEW_LINE);
+        return stringBuilder.toString();
     }
 
     public String generateLineSectionSecond() {
         StringBuilder stringBuilder = new StringBuilder();
-        Random random = new Random();
-        stringBuilder.append(keyIds.get(random.nextInt(keyIds.size() - 1)));
+        stringBuilder.append(SECTION_ACTUAL_DATA);
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomKeyIdGetter.getExistRandomKeyId());
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomType.generate(new String[]{}));
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomInt.generate(new String[]{"12"}));
         stringBuilder.append(SEPARATOR);
-        stringBuilder.append(1950 + (randomInt.generate(new String[]{"74"})));
+        stringBuilder.append(1900 + (randomInt.generate(new String[]{"124"})));
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomBigDecimal.generate(new String[]{"3"}));
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomBigDecimal.generate(new String[]{"2"}));
-        return null;
+        stringBuilder.append(NEW_LINE);
+        return stringBuilder.toString();
     }
 
 }
