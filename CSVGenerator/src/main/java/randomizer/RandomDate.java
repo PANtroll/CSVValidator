@@ -16,4 +16,9 @@ public class RandomDate implements Generable<Date> {
         Random random = new Random();
         return new Date(Math.abs(from + (from + random.nextLong()) % (to - from)));
     }
+
+    @Override
+    public String toString() {
+        return "10.12.12";
+    }
 }
