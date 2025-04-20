@@ -1,10 +1,11 @@
 import randomizer.*;
 
 import java.math.BigDecimal;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
-import java.util.Random;
 
 public class GenerateLine {
     private static final String SECTION_MASTER_DATA = "M";
@@ -20,7 +21,7 @@ public class GenerateLine {
     private final Generable<String> randomType = new RandomActualDataType();
     private final Generable<Date> randomDate = new RandomDate();
 
-    public String generateMetaData(){
+    public String generateMetaData() {
         StringBuilder stringBuilder = new StringBuilder();
 
 
@@ -48,7 +49,20 @@ public class GenerateLine {
         Calendar calTo2050 = new GregorianCalendar(2050, Calendar.JANUARY, 1);
         Date dateFrom1950 = calFrom1950.getTime();
         Date dateTo2050 = calTo2050.getTime();
-        stringBuilder.append(randomDate.generate(new String[]{"" + dateFrom1950.getTime(), "" + dateNow.getTime()}));//start date
+        DateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
+        Date buildDate = randomDate.generate(new String[]{"" + dateFrom1950.getTime(), "" + dateNow.getTime()});
+        stringBuilder.append(simpleDateFormat.format(buildDate));//start date
+        stringBuilder.append(SEPARATOR);
+        Date endDate = randomDate.generate(new String[]{"" + buildDate.getTime(), "" + dateTo2050.getTime()});
+        stringBuilder.append(simpleDateFormat.format(endDate));//end date
+        stringBuilder.append(SEPARATOR);
+        Date modifiedDate = randomDate.generate(new String[]{"" + buildDate.getTime(), "" + endDate});
+        stringBuilder.append(simpleDateFormat.format(modifiedDate));
+        stringBuilder.append(SEPARATOR);
+        Date startDate = randomDate.generate(new String[]{"" + modifiedDate.getTime(), "" + endDate});
+        stringBuilder.append(simpleDateFormat.format(startDate));
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append((randomInt.generate(new String[]{"499"}) + 1) * 10);//power
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomString.generate(new String[]{"20"}));
         stringBuilder.append(SEPARATOR);
