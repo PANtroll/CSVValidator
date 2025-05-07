@@ -10,7 +10,7 @@ public class RandomInteger implements Generable<Integer> {
      * @return generated Integer
      */
     @Override
-    public Integer generate(String[] args) {
+    public Integer generate(String... args) {
         Random random = new Random();
         String maxValueStr = args[0];
         try {

@@ -18,7 +18,7 @@ public class RandomKeyId implements Generable<String>, Geterable<String> {
      * @return unique key
      */
     @Override
-    public String generate(String[] args) {
+    public String generate(String... args) {
         String keyId = null;
         while (keyId == null || keyIds.contains(keyId)) {
             keyId = KEY_PREFIX + randomLong.generate(new String[]{MIN_VALUE, MAX_VALUE}).toString();

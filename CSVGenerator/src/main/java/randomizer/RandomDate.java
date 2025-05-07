@@ -10,7 +10,7 @@ public class RandomDate implements Generable<Date> {
      * @return generate date
      */
     @Override
-    public Date generate(String[] args) {
+    public Date generate(String... args) {
         long from = Long.parseLong(args[0]);
         long to = Long.parseLong(args[1]);
         Random random = new Random();

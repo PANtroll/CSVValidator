@@ -10,7 +10,7 @@ public class RandomLong implements Generable<Long> {
      * @return generated Integer
      */
     @Override
-    public Long generate(String[] args) {
+    public Long generate(String... args) {
         Random random = new Random();
         long min = Long.parseLong(args[0]);
         long max = Long.parseLong(args[1]);

@@ -9,7 +9,7 @@ public class RandomString implements Generable<String> {
      * @return generated String
      */
     @Override
-    public String generate(String[] args) {
+    public String generate(String... args) {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
         int targetStringLength = Integer.parseInt(args[0])+1;

@@ -9,7 +9,7 @@ public class RandomBigDecimal implements Generable<BigDecimal> {
      * @return generated BigDecimal
      */
     @Override
-    public BigDecimal generate(String[] args) {
+    public BigDecimal generate(String... args) {
         int scale = Integer.parseInt(args[0]);
         String range = "1000000000000.0";
         BigDecimal max = new BigDecimal(range);
