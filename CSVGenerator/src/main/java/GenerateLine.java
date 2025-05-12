@@ -20,6 +20,8 @@ public class GenerateLine {
     private final Generable<String> randomString = new RandomString();
     private final Generable<String> randomType = new RandomActualDataType();
     private final Generable<Date> randomDate = new RandomDate();
+    private final Generable<String> randomPlantType = new RandomPlantType();
+    private final Generable<RandomParagraphType.Type> randomParagraph = new RandomParagraphType();
 
     public String generateMetaData() {
         StringBuilder stringBuilder = new StringBuilder();
@@ -56,16 +58,43 @@ public class GenerateLine {
         Date endDate = randomDate.generate("" + buildDate.getTime(), "" + dateTo2050.getTime());
         stringBuilder.append(simpleDateFormat.format(endDate));//end date
         stringBuilder.append(SEPARATOR);
-        Date modifiedDate = randomDate.generate("" + buildDate.getTime(), "" + endDate);
+        Date modifiedDate = randomDate.generate("" + buildDate.getTime(), "" + endDate.getTime());
         stringBuilder.append(simpleDateFormat.format(modifiedDate));
         stringBuilder.append(SEPARATOR);
-        Date startDate = randomDate.generate("" + modifiedDate.getTime(), "" + endDate);
-        stringBuilder.append(simpleDateFormat.format(startDate));
+        Date startDate = randomDate.generate("" + modifiedDate.getTime(), "" + endDate.getTime());
+        stringBuilder.append(simpleDateFormat.format(startDate));//modification date
         stringBuilder.append(SEPARATOR);
         stringBuilder.append((randomInt.generate("499") + 1) * 10);//power
         stringBuilder.append(SEPARATOR);
-        stringBuilder.append(randomString.generate("20"));
+        stringBuilder.append("TYPE").append(randomInt.generate("5"));//power type
         stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomInt.generate("1"));//controllability
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append("VLE0").append(randomInt.generate("6"));//voltageLevel
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomString.generate("10")).append(randomInt.generate("16"));//measurement location ID
+        stringBuilder.append(SEPARATOR);
+        String plantType = randomPlantType.generate();
+        stringBuilder.append(plantType);//plant type
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomInt.generate("3"));//sound optimization
+        stringBuilder.append(SEPARATOR);
+        int isBiomassBonus = 0;
+        if(plantType.equals("Biomass")) {
+            isBiomassBonus = randomInt.generate("1");
+        }
+        stringBuilder.append(isBiomassBonus);//biomass bonus
+        stringBuilder.append(SEPARATOR);
+        int isBiomassTechnologyBonus = 0;
+        if(isBiomassBonus > 0){
+            isBiomassTechnologyBonus = randomInt.generate("1");
+        }
+        stringBuilder.append(isBiomassTechnologyBonus);//biomass technology bonus
+
+
+
+        stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomString.generate("20"));
 
         stringBuilder.append(NEW_LINE);
         return stringBuilder.toString();
@@ -81,7 +110,7 @@ public class GenerateLine {
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomInt.generate("12"));
         stringBuilder.append(SEPARATOR);
-        stringBuilder.append(1900 + (randomInt.generate("124")));
+        stringBuilder.append(2000 + (randomInt.generate("24")));
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomBigDecimal.generate("3"));
         stringBuilder.append(SEPARATOR);

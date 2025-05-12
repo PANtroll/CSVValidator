@@ -12,8 +12,8 @@ public class RandomString implements Generable<String> {
     public String generate(String... args) {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
-        int targetStringLength = Integer.parseInt(args[0])+1;
         Random random = new Random();
+        int targetStringLength = random.nextInt(Integer.parseInt(args[0]))+1;
 
         return random.ints(leftLimit, rightLimit + 1)
                 .limit(targetStringLength)
