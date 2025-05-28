@@ -9,27 +9,27 @@ public class RandomPlantType implements Generable<String> {
         Random random = new Random();
         switch (random.nextInt(8)) {
             case 0:
-                return Type.solar.name();
+                return Type.SOLAR.name();
             case 1:
-                return Type.biomass.name();
+                return Type.BIOMASS.name();
             case 2:
-                return Type.coal.name();
+                return Type.COAL.name();
             case 3:
-                return Type.wind.name();
+                return Type.WIND.name();
             case 4:
-                return Type.atom.name();
+                return Type.ATOM.name();
             case 5:
-                return Type.water.name();
+                return Type.WATER.name();
             case 6:
-                return Type.gas.name();
+                return Type.GAS.name();
             case 7:
-                return Type.geothermal.name();
+                return Type.GEOTHERMAL.name();
         }
-        return Type.solar.name();
+        return Type.SOLAR.name();
     }
 
     private enum Type {
-        solar, biomass, coal, wind, atom, water, gas, geothermal;
+        SOLAR, BIOMASS, COAL, WIND, ATOM, WATER, GAS, GEOTHERMAL;
 
         public static RandomPlantType.Type getTypeByName(String name) {
             return valueOf(name);

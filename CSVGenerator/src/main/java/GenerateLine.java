@@ -36,6 +36,8 @@ public class GenerateLine {
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomKeyId.generate());//master key
         stringBuilder.append(SEPARATOR);
+        stringBuilder.append(randomString.generate("20"));//city
+        stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomString.generate("20")).append(" ").append(randomInt.generate("100"));//street
         stringBuilder.append(SEPARATOR);
         stringBuilder.append(randomIntRange.generate("10000", "99999"));//post code
@@ -93,8 +95,6 @@ public class GenerateLine {
 
 
 
-        stringBuilder.append(SEPARATOR);
-        stringBuilder.append(randomString.generate("20"));
 
         stringBuilder.append(NEW_LINE);
         return stringBuilder.toString();

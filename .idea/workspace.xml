@@ -1,13 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="d7e37a39-fd08-42f8-97d5-44d8446667fc" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomIntegerRange.java" afterDir="false" />
+    <list default="true" id="d7e37a39-fd08-42f8-97d5-44d8446667fc" name="Changes" comment="add a few generators">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/GenerateLine.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/GenerateLine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/Generable.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/Generable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomActualDataCategory.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomActualDataCategory.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomActualDataType.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomActualDataType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomBigDecimal.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomBigDecimal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomDate.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomDate.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomInteger.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomInteger.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomKeyId.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomKeyId.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomLong.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomLong.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomParagraphType.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomParagraphType.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomString.java" beforeDir="false" afterPath="$PROJECT_DIR$/CSVGenerator/src/main/java/randomizer/RandomString.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,21 +32,42 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "PANtroll"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/PANtroll/CSVValidator",
+    "accountId": "75cf18fa-9f2c-44f0-a5de-d86490e0a03d"
+  }
+}]]></component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 2
+}]]></component>
   <component name="ProjectId" id="2nhhGwGty9viJASbB9Ao0nOPLML" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "master",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/Artix-Laptok/IdeaProjects/CSVValidator/CSVValidator/CSVGenerator",
+    "nodejs_package_manager_path": "npm",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyClassDialog.RECENTS_KEY">
       <recent name="randomizer" />
@@ -56,6 +87,14 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-28b599e66164-intellij.indexing.shared.core-IU-242.23726.103" />
+        <option value="bundled-js-predefined-d6986cc7102b-5c90d61e3bab-JavaScript-IU-242.23726.103" />
+      </set>
+    </attachedChunks>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
@@ -66,6 +105,7 @@
       <updated>1729431122338</updated>
       <workItem from="1729431125207" duration="1570000" />
       <workItem from="1730643938197" duration="2510000" />
+      <workItem from="1746638978760" duration="190000" />
     </task>
     <servers />
   </component>
@@ -94,5 +134,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="add a few generators" />
+    <option name="LAST_COMMIT_MESSAGE" value="add a few generators" />
   </component>
 </project>
