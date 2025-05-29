@@ -1,11 +1,25 @@
 package org.example.importFile;
 
+import org.apache.commons.lang3.StringUtils;
+import org.example.model.ActualData;
+import org.example.model.MasterData;
+import org.example.validation.ActualDataUnique;
+import org.example.validation.ValidationContainer;
+import org.example.validation.ValidationManager;
+
 import java.io.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
+import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
 public class BufferReaderCase implements CSVImport{
 
 
-    public static final String CSV_DELIMITER = ",";
+    public static final String CSV_DELIMITER = ";";
     private static final String CSV_COMMENT = "#";
 
     @Override
@@ -15,18 +29,45 @@ public class BufferReaderCase implements CSVImport{
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String line = bufferedReader.readLine();
             int lineNumber = 1;
-            while (!line.isBlank()) {
+            Set<String> masterKeys = new HashSet<>();
+            Set<ActualDataUnique> actualDataUniques = new HashSet<>();
+            while (!StringUtils.isBlank(line)) {
                 if(line.startsWith(CSV_COMMENT)) {
                     lineNumber++;
                     continue;
                 }
                 String[] tokens = line.split(CSV_DELIMITER);
-                if(tokens[0].equals("M") && tokens.length != 20
-                || tokens[0].equals("A") && tokens.length != 9) {
+                if(tokens[0].equals("M") && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
+                    ValidationManager validation = new ValidationManager();
+                    ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(), masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                    if(validation.isValid(validationContainer, tokens)){
+                        MasterData masterData = CSVMapperUtil.fillMasterDataByCSV(tokens);
+                        resultContainer.masterData().add(masterData);
+                    }
+                    else{
+                        resultContainer.errors().add("Validation error! " + line);
+                        resultContainer.errors().addAll(validationContainer.errors());
+                    }
+                }
+                else if(tokens[0].equals("A") && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS){
+                    ValidationManager validation = new ValidationManager();
+                    ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(), masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                    if(validation.isValid(validationContainer, tokens)){
+                        ActualData actualData = CSVMapperUtil.fillActualDataByCSV(tokens);
+                        resultContainer.actualData().add(actualData);
+                    }
+                    else{
+                        resultContainer.errors().add("Validation error! " + line);
+                        resultContainer.errors().addAll(validationContainer.errors());
+                    }
+                }
+                else{
                     resultContainer.errors().add("Not correct numbers of column in row: " + lineNumber + " " + line);
                 }
-                //new MasterData(line);
 
+
+                line = bufferedReader.readLine();
+                lineNumber++;
             }
         }
         catch (IOException e){
@@ -34,6 +75,6 @@ public class BufferReaderCase implements CSVImport{
 
         }
 
-        return null;
+        return resultContainer;
     }
 }

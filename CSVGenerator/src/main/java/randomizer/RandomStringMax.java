@@ -2,10 +2,10 @@ package randomizer;
 
 import java.util.Random;
 
-public class RandomString implements Generable<String> {
+public class RandomStringMax implements Generable<String> {
     /**
      * Generate a random alphabetic String
-     * @param args 1 argument: word size -1
+     * @param args 1 argument: max word size -1
      * @return generated String
      */
     @Override
@@ -13,7 +13,7 @@ public class RandomString implements Generable<String> {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
         Random random = new Random();
-        int targetStringLength = Integer.parseInt(args[0]);
+        int targetStringLength = random.nextInt(Integer.parseInt(args[0]))+1;
 
         return random.ints(leftLimit, rightLimit + 1)
                 .limit(targetStringLength)

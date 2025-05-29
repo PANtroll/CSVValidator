@@ -12,10 +12,10 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final String FILE_NAME = "generated.csv";
+    public static final String FILE_NAME = "generated_100mb.csv";
 
     public static void main(String[] args) {
-
+        long startTime = System.currentTimeMillis();
         File file = new File(FILE_NAME);
         Path path = file.toPath();
 //        try {
@@ -37,8 +37,10 @@ public class Main {
 
         CSVImport importer = new BufferReaderCase();
         ResultContainer result = importer.readCSVFile(FILE_NAME);
-        result.errors().forEach(System.out::println);
         result.masterData().forEach(System.out::println);
         result.actualData().forEach(System.out::println);
+        System.out.println("Errors:\r\n");
+        result.errors().forEach(System.out::println);
+        System.out.println("Time: " + (System.currentTimeMillis() - startTime)/1000f + "s");
     }
 }

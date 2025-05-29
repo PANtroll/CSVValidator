@@ -3,6 +3,8 @@ package randomizer;
 import java.util.Random;
 
 public class RandomLong implements Generable<Long> {
+    public static final Random random = new Random();
+
     /**
      * Generate random positive Integer
      *
@@ -11,7 +13,6 @@ public class RandomLong implements Generable<Long> {
      */
     @Override
     public Long generate(String... args) {
-        Random random = new Random();
         long min = Long.parseLong(args[0]);
         long max = Long.parseLong(args[1]);
         return random.nextLong(min, max);

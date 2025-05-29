@@ -11,10 +11,10 @@ public class RandomBigDecimal implements Generable<BigDecimal> {
     @Override
     public BigDecimal generate(String... args) {
         int scale = Integer.parseInt(args[0]);
-        String range = "1000000000000.0";
+        String range = args[1];
         BigDecimal max = new BigDecimal(range);
         BigDecimal randFromDouble = BigDecimal.valueOf(Math.random());
-        BigDecimal actualRandomDec = randFromDouble.divide(max);
+        BigDecimal actualRandomDec = randFromDouble.multiply(max);
         return actualRandomDec.setScale(scale, BigDecimal.ROUND_FLOOR);
     }
 
