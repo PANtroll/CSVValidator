@@ -112,7 +112,13 @@ public class GenerateLine {
         String year = String.valueOf(calendar.get(Calendar.YEAR));
         String month = String.valueOf(calendar.get(Calendar.MONTH) + 1);
         String day = String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
+        int tries = 0;
         while (!actualDataHelper.checkUniqueness(existRandomKeyId, dataReportType, year, month, day)){
+            tries++;
+            if(tries > 500){
+                existRandomKeyId = randomKeyIdGetter.getExistRandomKeyId();
+                tries = 0;
+            }
             calendar.setTime(randomDate.generate("" + calendar.getTimeInMillis(), "" + new Date().getTime()));
             year = String.valueOf(calendar.get(Calendar.YEAR));
             month = String.valueOf(calendar.get(Calendar.MONTH) + 1);

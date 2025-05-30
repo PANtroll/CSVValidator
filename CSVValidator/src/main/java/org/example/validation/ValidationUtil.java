@@ -16,20 +16,32 @@ import static org.example.validation.MasterDataValidator.INVALID_X_IN_LINE_X;
 public class ValidationUtil {
 
 
+    public static final String MINUS = "-";
+
     public static Date validateDate(String value, ValidationContainer validationContainer, String columnName) {
         if (value.length() != 10) {
             validationContainer.errors().add(String.format(INVALID_X_IN_LINE_X, columnName, validationContainer.lineNumber()));
             return null;
         }
-        String[] dataParts = value.split("-");
+        String[] dataParts = value.split(MINUS);
         if (dataParts.length != 3) {
             validationContainer.errors().add(INVALID_X_FORMAT_IN_LINE_X);
             return null;
         }
-        try {
+        try{
             int day = Integer.parseInt(dataParts[0]);
             int month = Integer.parseInt(dataParts[1]);
             int year = Integer.parseInt(dataParts[2]);
+            return checkDate(validationContainer, columnName, day, month, year);
+        }
+        catch (NumberFormatException e){
+            validationContainer.errors().add(INVALID_X_FORMAT_IN_LINE_X);
+        }
+        return null;
+    }
+
+    public static Date checkDate(ValidationContainer validationContainer, String columnName, int day, int month, int year) {
+        try {
             LocalDateTime localDateTime = LocalDateTime.of(year, month, day, 0 ,0);
             int dayLocal = localDateTime.getDayOfMonth();
             int monthLocal = localDateTime.getMonthValue();
@@ -38,14 +50,7 @@ public class ValidationUtil {
                 validationContainer.errors().add(String.format(INVALID_X_IN_LINE_X, columnName, validationContainer.lineNumber()));
             }
             return Date.from(localDateTime.toInstant(ZoneOffset.UTC));
-//            Calendar cal = Calendar.getInstance();
-//            cal.set(year, month - 1, day);
-//            if(day != cal.get(Calendar.DAY_OF_MONTH) || month != cal.get(Calendar.MONTH) + 1 || year != cal.get(Calendar.YEAR)) {
-//                validationContainer.errors().add(String.format(INVALID_X_IN_LINE_X, columnName, validationContainer.lineNumber()));
-//                return null;
-//            }
-//            return cal.getTime();
-        } catch (NumberFormatException | DateTimeException e) {
+        } catch (Exception e) {
             validationContainer.errors().add(String.format(INVALID_X_FORMAT_IN_LINE_X, columnName, validationContainer.lineNumber()));
         }
         return null;

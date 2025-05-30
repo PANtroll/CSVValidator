@@ -12,7 +12,13 @@ import java.util.Scanner;
 
 public class Main {
 
-    public static final String FILE_NAME = "generated_100mb.csv";
+//    public static final String FILE_NAME = "generated_100mb.csv";
+//    public static final String FILE_NAME = "generated_250mb.csv";
+//    public static final String FILE_NAME = "generated_500mb.csv";
+//    public static final String FILE_NAME = "generated_1gb.csv";
+//    public static final String FILE_NAME = "generated_2gb.csv";
+//    public static final String FILE_NAME = "generated_4gb.csv";
+    public static final String FILE_NAME = "generated_8gb.csv";
 
     public static void main(String[] args) {
         long startTime = System.currentTimeMillis();
@@ -37,8 +43,8 @@ public class Main {
 
         CSVImport importer = new BufferReaderCase();
         ResultContainer result = importer.readCSVFile(FILE_NAME);
-        result.masterData().forEach(System.out::println);
-        result.actualData().forEach(System.out::println);
+//        result.masterData().forEach(System.out::println);
+//        result.actualData().forEach(System.out::println);
         System.out.println("Errors:\r\n");
         result.errors().forEach(System.out::println);
         System.out.println("Time: " + (System.currentTimeMillis() - startTime)/1000f + "s");

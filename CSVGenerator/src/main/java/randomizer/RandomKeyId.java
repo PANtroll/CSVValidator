@@ -6,9 +6,8 @@ public class RandomKeyId implements Generable<String>, Geterable<String> {
     public static final String KEY_PREFIX = "EC1048EN00P";
     public static final String MIN_VALUE = "100000000000000000";
     public static final String MAX_VALUE = "999999999999999999";
-    public static final long MAX = 999_999_999_999_999_999L;
-    public static final long MIN = 100000000000000000L;
-    private final List<String> keyIds = new ArrayList<>();
+    private final Set<String> keyIdsSet = new HashSet<>();
+    private final List<String> keyIdsList = new ArrayList<>();
     private final RandomLong randomLong = new RandomLong();
 
     /**
@@ -20,10 +19,10 @@ public class RandomKeyId implements Generable<String>, Geterable<String> {
     @Override
     public String generate(String... args) {
         String keyId = null;
-        while (keyId == null || keyIds.contains(keyId)) {
+        while (keyId == null || keyIdsSet.contains(keyId)) {
             keyId = KEY_PREFIX + randomLong.generate(MIN_VALUE, MAX_VALUE);
         }
-        keyIds.add(keyId);
+        keyIdsSet.add(keyId);
         return keyId;
     }
 
@@ -34,10 +33,13 @@ public class RandomKeyId implements Generable<String>, Geterable<String> {
      */
     @Override
     public String getExistRandomKeyId() {
-        if (keyIds.isEmpty()) {
-            return null;
+        if (keyIdsList.isEmpty()) {
+            if(keyIdsSet.isEmpty()) {
+                return null;
+            }
+            keyIdsList.addAll(keyIdsSet);
         }
         Random r = new Random();
-        return keyIds.get(r.nextInt(keyIds.size() - 1));
+        return keyIdsList.get(r.nextInt(keyIdsList.size() - 1));
     }
 }
