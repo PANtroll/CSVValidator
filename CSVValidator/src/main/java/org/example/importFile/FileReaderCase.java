@@ -18,13 +18,18 @@ public class FileReaderCase implements CSVImport {
     public static final char NEW_LINE_CHAR = '\n';
     public static final String NEW_LINE = "\n";
     public static final char CARRIAGE_RETURN_CHAR = '\r';
+    private boolean isLogging = false;
+
+    public FileReaderCase(boolean isLogging) {
+        this.isLogging = isLogging;
+    }
 
     @Override
     public ResultContainer readCSVFile(String fileName) {
         ResultContainer resultContainer = new ResultContainer();
         File file = new File(fileName);
         try (FileReader fileReader = new FileReader(file)) {
-            char[] buffer = new char[2_048];
+            char[] buffer = new char[8_192];
             int readChars = fileReader.read(buffer);
             StringBuilder tmpToken = new StringBuilder();
             int lineNumber = 0;
@@ -54,7 +59,7 @@ public class FileReaderCase implements CSVImport {
                         tmpToken = new StringBuilder();
                         String[] tokens = tokensList.toArray(new String[0]);
                         lineNumber++;
-                        if (lineNumber % 1_000_000 == 0) {
+                        if (isLogging && lineNumber % 1_000_000 == 0) {
                             System.out.println(lineNumber);
                         }
                         if(StringUtils.isBlank(tokens[0])){

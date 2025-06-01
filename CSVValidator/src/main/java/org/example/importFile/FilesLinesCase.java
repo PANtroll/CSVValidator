@@ -20,6 +20,12 @@ import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
 public class FilesLinesCase implements CSVImport{
+    private boolean isLogging = false;
+
+    public FilesLinesCase(boolean isLogging) {
+        this.isLogging = isLogging;
+    }
+
     @Override
     public ResultContainer readCSVFile(String fileName) {
         ResultContainer resultContainer = new ResultContainer();
@@ -29,7 +35,7 @@ public class FilesLinesCase implements CSVImport{
             final Set<String>[] masterKeys = new Set[]{new HashSet<>()};
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
             lines.forEach(line ->  {
-                if (lineNumber[0] % 1_000_000 == 0) {
+                if (isLogging && lineNumber[0] % 1_000_000 == 0) {
                     System.out.println(lineNumber[0]);
                 }
                 if (line.startsWith(CSV_COMMENT)) {
