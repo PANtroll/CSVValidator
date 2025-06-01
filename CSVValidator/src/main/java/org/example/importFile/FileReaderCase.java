@@ -26,7 +26,7 @@ public class FileReaderCase implements CSVImport {
         try (FileReader fileReader = new FileReader(file)) {
             char[] buffer = new char[2_048];
             int readChars = fileReader.read(buffer);
-            StringBuffer tmpToken = new StringBuffer();
+            StringBuilder tmpToken = new StringBuilder();
             int lineNumber = 0;
             Set<String> masterKeys = new HashSet<>();
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
@@ -42,14 +42,16 @@ public class FileReaderCase implements CSVImport {
                         }
                     }
                     if (c == CSV_DELIMITER_CHAR) {
-                        tmpToken = getStringBuffer(tmpToken, tokensList);
+                        tokensList.add(tmpToken.toString());
+                        tmpToken = new StringBuilder();
                         continue;
                     }
                     if (c == CARRIAGE_RETURN_CHAR){
                         continue;
                     }
                     if (c == NEW_LINE_CHAR) {
-                        tmpToken = getStringBuffer(tmpToken, tokensList);
+                        tokensList.add(tmpToken.toString());
+                        tmpToken = new StringBuilder();
                         String[] tokens = tokensList.toArray(new String[0]);
                         lineNumber++;
                         if (lineNumber % 1_000_000 == 0) {
@@ -97,10 +99,10 @@ public class FileReaderCase implements CSVImport {
         return resultContainer;
     }
 
-    private static StringBuffer getStringBuffer(StringBuffer tmpToken, List<String> tokensList) {
-        String token = tmpToken.toString();
-        tokensList.add(token);
-        tmpToken = new StringBuffer();
+    private static String getStringBuffer(String tmpToken, List<String> tokensList) {
+//        String token = tmpToken.toString();
+        tokensList.add(tmpToken);
+        tmpToken = "";
         return tmpToken;
     }
 
