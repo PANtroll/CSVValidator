@@ -2,8 +2,6 @@ package org.example;
 
 import org.example.importFile.*;
 
-import java.io.*;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,15 +10,13 @@ public class Main {
 //    public static final String FILE_NAME = "generated_100mb.csv";
 //    public static final String FILE_NAME = "generated_250mb.csv";
 //    public static final String FILE_NAME = "generated_500mb.csv";
-//    public static final String FILE_NAME = "generated_1gb.csv";
+    public static final String FILE_NAME = "generated_1gb.csv";
 //    public static final String FILE_NAME = "generated_2gb.csv";
 //    public static final String FILE_NAME = "generated_4gb.csv";
-    public static final String FILE_NAME = "generated.csv";
+//    public static final String FILE_NAME = "generated_5.csv";
 
     public static void main(String[] args) {
 
-        File file = new File(FILE_NAME);
-        Path path = file.toPath();
 //        try {
 //            FileInputStream fileInputStream = new FileInputStream(file);
 //            FileReader fileReader = new FileReader(file);
@@ -37,11 +33,20 @@ public class Main {
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
+        try{
+            runTests();
+        }
+        catch(Throwable e){
+            System.out.println("Error: " + e.getMessage());
+        }
+    }
+
+    private static void runTests() {
         List<CSVImport> tests = new ArrayList<>();
-        tests.add(new BufferReaderCase());
-        tests.add(new ScannerCase());
-        tests.add(new FilesLinesCase());
-        tests.add(new DataInputStreamCase());
+//        tests.add(new BufferReaderCase());
+//        tests.add(new ScannerCase());
+//        tests.add(new FilesLinesCase());
+        tests.add(new FileReaderCase());
 //        tests.add(new CSVReaderCase());
 
         ResultContainer lastResult = null;
@@ -59,10 +64,10 @@ public class Main {
         ResultContainer result = importer.readCSVFile(FILE_NAME);
 //        result.masterData().forEach(System.out::println);
 //        result.actualData().forEach(System.out::println);
-        System.out.println("Errors:\r\n");
+        System.out.println(importer + " Errors:\r\n");
         result.errors().forEach(System.out::println);
         if(!result.errors().isEmpty()) throw new RuntimeException();
-        System.out.println("Time for : " + (System.currentTimeMillis() - startTime)/1000f + "s");
+        System.out.println("Time for " + importer + ": " + (System.currentTimeMillis() - startTime)/1000f + "s");
         return result;
     }
 }

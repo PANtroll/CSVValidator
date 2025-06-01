@@ -29,7 +29,7 @@ public class FilesLinesCase implements CSVImport{
             final Set<String>[] masterKeys = new Set[]{new HashSet<>()};
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
             lines.forEach(line ->  {
-                if (lineNumber[0] % 100_000 == 0) {
+                if (lineNumber[0] % 1_000_000 == 0) {
                     System.out.println(lineNumber[0]);
                 }
                 if (line.startsWith(CSV_COMMENT)) {
@@ -67,5 +67,10 @@ public class FilesLinesCase implements CSVImport{
         }
 
         return resultContainer;
+    }
+
+    @Override
+    public String toString() {
+        return "FilesLinesCase";
     }
 }

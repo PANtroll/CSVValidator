@@ -30,7 +30,7 @@ public class BufferReaderCase implements CSVImport {
             Set<String> masterKeys = new HashSet<>();
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
             while (!StringUtils.isBlank(line)) {
-                if (lineNumber % 100_000 == 0) {
+                if (lineNumber % 1_000_000 == 0) {
                     System.out.println(lineNumber);
                 }
                 if (line.startsWith(CSV_COMMENT)) {
@@ -69,5 +69,10 @@ public class BufferReaderCase implements CSVImport {
         }
 
         return resultContainer;
+    }
+
+    @Override
+    public String toString() {
+        return "BufferReaderCase";
     }
 }
