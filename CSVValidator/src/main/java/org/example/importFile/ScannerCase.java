@@ -13,23 +13,28 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Scanner;
 import java.util.Set;
 
 import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
-public class BufferReaderCase implements CSVImport {
-
+public class ScannerCase implements CSVImport{
     @Override
     public ResultContainer readCSVFile(String fileName) {
         ResultContainer resultContainer = new ResultContainer();
         File file = new File(fileName);
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            String line = bufferedReader.readLine();
+        try (Scanner scanner = new Scanner(file)) {
+            String line = "";
             int lineNumber = 1;
             Set<String> masterKeys = new HashSet<>();
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
-            while (!StringUtils.isBlank(line)) {
+            while (scanner.hasNextLine()) {
+                line = scanner.nextLine();
+                lineNumber++;
+                if(StringUtils.isBlank(line)) {
+                    continue;
+                }
                 if (lineNumber % 100_000 == 0) {
                     System.out.println(lineNumber);
                 }
@@ -59,9 +64,6 @@ public class BufferReaderCase implements CSVImport {
                 } else {
                     resultContainer.errors().add("Not correct numbers of column in row: " + lineNumber + " " + line);
                 }
-
-                line = bufferedReader.readLine();
-                lineNumber++;
             }
         } catch (IOException e) {
             System.out.println("Problem with file " + fileName + ": " + e);

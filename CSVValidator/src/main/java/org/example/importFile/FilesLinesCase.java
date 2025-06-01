@@ -7,40 +7,39 @@ import org.example.validation.ActualDataUnique;
 import org.example.validation.ValidationContainer;
 import org.example.validation.ValidationManager;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Stream;
 
 import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
-public class BufferReaderCase implements CSVImport {
-
+public class FilesLinesCase implements CSVImport{
     @Override
     public ResultContainer readCSVFile(String fileName) {
         ResultContainer resultContainer = new ResultContainer();
-        File file = new File(fileName);
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            String line = bufferedReader.readLine();
-            int lineNumber = 1;
-            Set<String> masterKeys = new HashSet<>();
+        Path path = Path.of(fileName);
+        try (Stream<String> lines = Files.lines(path)) {
+            final int[] lineNumber = {1};
+            final Set<String>[] masterKeys = new Set[]{new HashSet<>()};
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
-            while (!StringUtils.isBlank(line)) {
-                if (lineNumber % 100_000 == 0) {
-                    System.out.println(lineNumber);
+            lines.forEach(line ->  {
+                if (lineNumber[0] % 100_000 == 0) {
+                    System.out.println(lineNumber[0]);
                 }
                 if (line.startsWith(CSV_COMMENT)) {
-                    lineNumber++;
-                    continue;
+                    lineNumber[0]++;
+                    return;
                 }
                 String[] tokens = line.split(CSV_DELIMITER);
                 if (tokens[0].equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
-                    ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(), masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                    ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(), masterKeys[0], actualDataUniques, new ArrayList<>(), lineNumber[0]);
                     if (validation.isValid(validationContainer, tokens)) {
                         resultContainer.masterData().add(validationContainer.data());
                     } else {
@@ -49,7 +48,7 @@ public class BufferReaderCase implements CSVImport {
                     }
                 } else if (tokens[0].equals(A) && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
-                    ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(), masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                    ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(), masterKeys[0], actualDataUniques, new ArrayList<>(), lineNumber[0]);
                     if (validation.isValid(validationContainer, tokens)) {
                         resultContainer.actualData().add(validationContainer.data());
                     } else {
@@ -57,12 +56,11 @@ public class BufferReaderCase implements CSVImport {
                         resultContainer.errors().addAll(validationContainer.errors());
                     }
                 } else {
-                    resultContainer.errors().add("Not correct numbers of column in row: " + lineNumber + " " + line);
+                    resultContainer.errors().add("Not correct numbers of column in row: " + lineNumber[0] + " " + line);
                 }
 
-                line = bufferedReader.readLine();
-                lineNumber++;
-            }
+                lineNumber[0]++;
+            });
         } catch (IOException e) {
             System.out.println("Problem with file " + fileName + ": " + e);
 

@@ -1,14 +1,11 @@
 package org.example;
 
-import com.opencsv.CSVReader;
-import org.example.importFile.BufferReaderCase;
-import org.example.importFile.CSVImport;
-import org.example.importFile.ResultContainer;
+import org.example.importFile.*;
 
 import java.io.*;
-import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Main {
 
@@ -18,10 +15,10 @@ public class Main {
 //    public static final String FILE_NAME = "generated_1gb.csv";
 //    public static final String FILE_NAME = "generated_2gb.csv";
 //    public static final String FILE_NAME = "generated_4gb.csv";
-    public static final String FILE_NAME = "generated_8gb.csv";
+    public static final String FILE_NAME = "generated.csv";
 
     public static void main(String[] args) {
-        long startTime = System.currentTimeMillis();
+
         File file = new File(FILE_NAME);
         Path path = file.toPath();
 //        try {
@@ -40,13 +37,32 @@ public class Main {
 //        } catch (IOException e) {
 //            throw new RuntimeException(e);
 //        }
+        List<CSVImport> tests = new ArrayList<>();
+        tests.add(new BufferReaderCase());
+        tests.add(new ScannerCase());
+        tests.add(new FilesLinesCase());
+        tests.add(new DataInputStreamCase());
+//        tests.add(new CSVReaderCase());
 
-        CSVImport importer = new BufferReaderCase();
+        ResultContainer lastResult = null;
+        for (CSVImport importer : tests){
+            ResultContainer result = runWithStopwatch(importer);
+            if(lastResult != null && !result.equals(lastResult)) {
+                throw new RuntimeException("Not correct result!");
+            }
+            lastResult = result;
+        }
+    }
+
+    private static ResultContainer runWithStopwatch(CSVImport importer) {
+        long startTime = System.currentTimeMillis();
         ResultContainer result = importer.readCSVFile(FILE_NAME);
 //        result.masterData().forEach(System.out::println);
 //        result.actualData().forEach(System.out::println);
         System.out.println("Errors:\r\n");
         result.errors().forEach(System.out::println);
-        System.out.println("Time: " + (System.currentTimeMillis() - startTime)/1000f + "s");
+        if(!result.errors().isEmpty()) throw new RuntimeException();
+        System.out.println("Time for : " + (System.currentTimeMillis() - startTime)/1000f + "s");
+        return result;
     }
 }
