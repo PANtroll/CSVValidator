@@ -14,8 +14,8 @@ public class Main {
 //    public static final String FILE_NAME = "generated_2gb.csv";
 //    public static final String FILE_NAME = "generated_4gb.csv";
     public static final String FILE_NAME = "generated_8gb.csv";
-    private static final boolean IS_LOGGING = true;
 //    public static final String FILE_NAME = "generated_5.csv";
+private static final boolean IS_LOGGING = true;
 
     public static void main(String[] args) {
 

@@ -13,10 +13,7 @@ import org.example.validation.ValidationManager;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
@@ -49,7 +46,7 @@ public class CSVReaderCase implements CSVImport {
                 if (tokens[0].equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
                     ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(),
-                            masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                            masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
                     if (validation.isValid(validationContainer, tokens)) {
                         resultContainer.masterData().add(validationContainer.data());
                     } else {
@@ -59,7 +56,7 @@ public class CSVReaderCase implements CSVImport {
                 } else if (tokens[0].equals(A) && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
                     ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(),
-                            masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                            masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
                     if (validation.isValid(validationContainer, tokens)) {
                         resultContainer.actualData().add(validationContainer.data());
                     } else {

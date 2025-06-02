@@ -68,7 +68,7 @@ public class FileReaderCase implements CSVImport {
                         }
                         if (tokens[0].equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
                             ValidationManager validation = new ValidationManager();
-                            ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(), masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                            ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(), masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
                             if (validation.isValid(validationContainer, tokens)) {
                                 resultContainer.masterData().add(validationContainer.data());
                             } else {
@@ -77,7 +77,7 @@ public class FileReaderCase implements CSVImport {
                             }
                         } else if (tokens[0].equals(A) && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS) {
                             ValidationManager validation = new ValidationManager();
-                            ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(), masterKeys, actualDataUniques, new ArrayList<>(), lineNumber);
+                            ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(), masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
                             if (validation.isValid(validationContainer, tokens)) {
                                 resultContainer.actualData().add(validationContainer.data());
                             } else {
