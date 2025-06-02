@@ -34,11 +34,12 @@ public class MasterDataValidator implements CSVValidator {
     public static final String BIOMASS_TECHNOLOGY_BONUS = "Biomass Technology Bonus";
 
     @Override
-    public boolean validate(ValidationContainer validationContainer){
+    public boolean validate(ValidationContainer validationContainer) {
 
         String[] tokens = validationContainer.tokens();
-        if(tokens.length != MasterData.NUMBER_OF_MASTER_DATA_FIELDS){
-            validationContainer.errors().add(String.format(NOT_CORRECT_NUMBER_OF_COLUMNS_IN_LINE_X, validationContainer.lineNumber()));
+        if (tokens.length != MasterData.NUMBER_OF_MASTER_DATA_FIELDS) {
+            validationContainer.errors().add(String.format(NOT_CORRECT_NUMBER_OF_COLUMNS_IN_LINE_X,
+                    validationContainer.lineNumber()));
             return false;
         }
         validateAndParseMasterKey(tokens[1], validationContainer);
@@ -61,290 +62,343 @@ public class MasterDataValidator implements CSVValidator {
         validateAndParseIsBiomassBonus(tokens[18], validationContainer);
         validateAndParseIsBiomassTechnologyBonus(tokens[19], validationContainer);
 
-        if(validationContainer.errors().isEmpty()){
+        if (validationContainer.errors().isEmpty()) {
             validateDateRelations(validationContainer);
         }
 
         return validationContainer.errors().isEmpty();
     }
 
-    private void validateAndParseMasterKey(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, MASTER_KEY, validationContainer.lineNumber()));
+    private void validateAndParseMasterKey(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, MASTER_KEY,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(value.length() != 29){
-            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, MASTER_KEY, validationContainer.lineNumber()));
+        if (value.length() != 29) {
+            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, MASTER_KEY,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(validationContainer.masterKeys().contains(value)){
-            validationContainer.errors().add(String.format(X_ALREADY_EXIST_IN_LINE_X, MASTER_KEY, validationContainer.lineNumber()));
+        if (validationContainer.masterKeys().contains(value)) {
+            validationContainer.errors().add(String.format(X_ALREADY_EXIST_IN_LINE_X, MASTER_KEY,
+                    validationContainer.lineNumber()));
             return;
         }
         validationContainer.masterKeys().add(value);
         validationContainer.data().setMasterKey(value);
     }
-    private void validateAndParseCity(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
+
+    private void validateAndParseCity(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
             validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, CITY, validationContainer.lineNumber()));
             return;
         }
-        if(value.length() > 256){
-            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, CITY, validationContainer.lineNumber()));
+        if (value.length() > 256) {
+            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, CITY,
+                    validationContainer.lineNumber()));
             return;
         }
-        ((MasterData)validationContainer.data()).setCity(value);
+        ((MasterData) validationContainer.data()).setCity(value);
     }
-    private void validateAndParseStreet(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, STREET, validationContainer.lineNumber()));
+
+    private void validateAndParseStreet(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, STREET,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(value.length() > 256){
-            validationContainer.errors().add(String.format(X_LENGTH_IS_TOO_LONG_IN_LINE_X, STREET, validationContainer.lineNumber()));
+        if (value.length() > 256) {
+            validationContainer.errors().add(String.format(X_LENGTH_IS_TOO_LONG_IN_LINE_X, STREET,
+                    validationContainer.lineNumber()));
             return;
         }
-        ((MasterData)validationContainer.data()).setStreet(value);
+        ((MasterData) validationContainer.data()).setStreet(value);
     }
-    private void validateAndParsePostCode(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, POST_CODE, validationContainer.lineNumber()));
+
+    private void validateAndParsePostCode(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, POST_CODE,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(value.length() != 5){
-            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, POST_CODE, validationContainer.lineNumber()));
+        if (value.length() != 5) {
+            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, POST_CODE,
+                    validationContainer.lineNumber()));
             return;
         }
-        ((MasterData)validationContainer.data()).setPostCode(value);
+        ((MasterData) validationContainer.data()).setPostCode(value);
     }
-    private void validateAndParseName(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
+
+    private void validateAndParseName(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
             validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, NAME, validationContainer.lineNumber()));
             return;
         }
-        if(value.length() > 256){
-            validationContainer.errors().add(String.format(X_LENGTH_IS_TOO_LONG_IN_LINE_X, NAME, validationContainer.lineNumber()));
+        if (value.length() > 256) {
+            validationContainer.errors().add(String.format(X_LENGTH_IS_TOO_LONG_IN_LINE_X, NAME,
+                    validationContainer.lineNumber()));
             return;
         }
-        ((MasterData)validationContainer.data()).setName(value);
+        ((MasterData) validationContainer.data()).setName(value);
     }
-    private void validateAndParseRegion(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, REGION, validationContainer.lineNumber()));
+
+    private void validateAndParseRegion(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, REGION,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(value.length() != 2){
-            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, REGION, validationContainer.lineNumber()));
+        if (value.length() != 2) {
+            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, REGION,
+                    validationContainer.lineNumber()));
             return;
         }
-        ((MasterData)validationContainer.data()).setRegion(value);
+        ((MasterData) validationContainer.data()).setRegion(value);
     }
-    private void validateAndParseFuel(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
+
+    private void validateAndParseFuel(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
             validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, FUEL, validationContainer.lineNumber()));
             return;
         }
-        if(value.length() > 2){
-            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, FUEL, validationContainer.lineNumber()));
+        if (value.length() > 2) {
+            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, FUEL,
+                    validationContainer.lineNumber()));
             return;
         }
-        try{
+        try {
             int fuel = Integer.parseInt(value);
-            if(fuel < 0){
-                validationContainer.errors().add(String.format(X_CAN_NOT_BE_NEGATIVE_IN_LINE_X, FUEL, validationContainer.lineNumber()));
+            if (fuel < 0) {
+                validationContainer.errors().add(String.format(X_CAN_NOT_BE_NEGATIVE_IN_LINE_X, FUEL,
+                        validationContainer.lineNumber()));
                 return;
             }
-            if(fuel >= 100){
-                validationContainer.errors().add(String.format(X_CAN_NOT_BE_MORE_THAN_99_IN_LINE_X, FUEL, validationContainer.lineNumber()));
+            if (fuel >= 100) {
+                validationContainer.errors().add(String.format(X_CAN_NOT_BE_MORE_THAN_99_IN_LINE_X, FUEL,
+                        validationContainer.lineNumber()));
                 return;
             }
-            ((MasterData)validationContainer.data()).setFuel(fuel);
-        }
-        catch(NumberFormatException e){
-            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, FUEL, validationContainer.lineNumber()));
+            ((MasterData) validationContainer.data()).setFuel(fuel);
+        } catch (NumberFormatException e) {
+            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, FUEL,
+                    validationContainer.lineNumber()));
         }
     }
-    private void validateAndParseStartDate(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, START_DATE, validationContainer.lineNumber()));
+
+    private void validateAndParseStartDate(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, START_DATE,
+                    validationContainer.lineNumber()));
             return;
         }
         Date startDate = ValidationUtil.validateDate(value, validationContainer, START_DATE);
-        if(startDate != null){
+        if (startDate != null) {
             ((MasterData) validationContainer.data()).setStartDate(startDate);
         }
     }
-    private void validateAndParseEndDate(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
+
+    private void validateAndParseEndDate(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
             return;
         }
         Date endDate = ValidationUtil.validateDate(value, validationContainer, END_DATE);
-        if(endDate != null){
+        if (endDate != null) {
             ((MasterData) validationContainer.data()).setEndDate(endDate);
         }
     }
-    private void validateAndParseModificationDate(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
+
+    private void validateAndParseModificationDate(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
             return;
         }
         Date modificationDate = ValidationUtil.validateDate(value, validationContainer, MODIFICATION_DATE);
-        if(modificationDate != null){
-            ((MasterData) validationContainer.data()).setEndDate(modificationDate);
+        if (modificationDate != null) {
+            ((MasterData) validationContainer.data()).setModificationDate(modificationDate);
         }
     }
-    private void validateAndParsePower(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
+
+    private void validateAndParsePower(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
             validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, POWER, validationContainer.lineNumber()));
             return;
         }
-        try{
+        try {
             int power = Integer.parseInt(value);
-            if(power < 0){
-                validationContainer.errors().add(String.format(X_CAN_NOT_BE_NEGATIVE_IN_LINE_X, POWER, validationContainer.lineNumber()));
+            if (power < 0) {
+                validationContainer.errors().add(String.format(X_CAN_NOT_BE_NEGATIVE_IN_LINE_X, POWER,
+                        validationContainer.lineNumber()));
                 return;
             }
-            ((MasterData)validationContainer.data()).setPower(power);
-        }
-        catch(NumberFormatException e){
-            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, POWER, validationContainer.lineNumber()));
+            ((MasterData) validationContainer.data()).setPower(power);
+        } catch (NumberFormatException e) {
+            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, POWER,
+                    validationContainer.lineNumber()));
         }
     }
-    private void validateAndParsePowerType(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, POWER_TYPE, validationContainer.lineNumber()));
+
+    private void validateAndParsePowerType(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, POWER_TYPE,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(value.length() != 5){
-            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, POWER_TYPE, validationContainer.lineNumber()));
+        if (value.length() != 5) {
+            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, POWER_TYPE,
+                    validationContainer.lineNumber()));
             return;
         }
-        try{
+        try {
             PowerTypeEnum plantType = PowerTypeEnum.valueOf(value);
             ((MasterData) validationContainer.data()).setPowerType(plantType);
-        }
-        catch(IllegalArgumentException e){
-            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, POWER_TYPE, validationContainer.lineNumber()));
+        } catch (IllegalArgumentException e) {
+            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, POWER_TYPE,
+                    validationContainer.lineNumber()));
         }
     }
-    private void validateAndParseControllability(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, CONTROLLABILITY, validationContainer.lineNumber()));
+
+    private void validateAndParseControllability(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, CONTROLLABILITY,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(ZERO.equals(value)){
-            ((MasterData)validationContainer.data()).setControllability(Boolean.FALSE);
+        if (ZERO.equals(value)) {
+            ((MasterData) validationContainer.data()).setControllability(Boolean.FALSE);
             return;
         }
-        if(ONE.equals(value)){
-            ((MasterData)validationContainer.data()).setControllability(Boolean.TRUE);
+        if (ONE.equals(value)) {
+            ((MasterData) validationContainer.data()).setControllability(Boolean.TRUE);
             return;
         }
-        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, CONTROLLABILITY, validationContainer.lineNumber()));
+        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, CONTROLLABILITY,
+                validationContainer.lineNumber()));
     }
-    private void validateAndParseVoltageLevel(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, VOLTAGE_LEVEL, validationContainer.lineNumber()));
+
+    private void validateAndParseVoltageLevel(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, VOLTAGE_LEVEL,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(value.length() != 5){
-            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, VOLTAGE_LEVEL, validationContainer.lineNumber()));
+        if (value.length() != 5) {
+            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, VOLTAGE_LEVEL,
+                    validationContainer.lineNumber()));
             return;
         }
-        try{
+        try {
             VoltageLevelEnum voltageLevel = VoltageLevelEnum.valueOf(value);
-            ((MasterData)validationContainer.data()).setVoltageLevel(voltageLevel);
-        }
-        catch(IllegalArgumentException e){
-            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, VOLTAGE_LEVEL, validationContainer.lineNumber()));
+            ((MasterData) validationContainer.data()).setVoltageLevel(voltageLevel);
+        } catch (IllegalArgumentException e) {
+            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, VOLTAGE_LEVEL,
+                    validationContainer.lineNumber()));
         }
     }
-    private void validateAndParseMeasurementLocationId(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, MEASUREMENT_LOCATION_ID, validationContainer.lineNumber()));
+
+    private void validateAndParseMeasurementLocationId(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, MEASUREMENT_LOCATION_ID,
+                    validationContainer.lineNumber()));
             return;
         }
-        if (value.length() != 26){
-            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, MEASUREMENT_LOCATION_ID, validationContainer.lineNumber()));
+        if (value.length() != 26) {
+            validationContainer.errors().add(String.format(INVALID_X_LENGTH_IN_LINE_X, MEASUREMENT_LOCATION_ID,
+                    validationContainer.lineNumber()));
             return;
         }
-        ((MasterData)validationContainer.data()).setMeasurementLocationId(value);
+        ((MasterData) validationContainer.data()).setMeasurementLocationId(value);
     }
-    private void validateAndParsePlantType(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, PLANT_TYPE, validationContainer.lineNumber()));
+
+    private void validateAndParsePlantType(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, PLANT_TYPE,
+                    validationContainer.lineNumber()));
             return;
         }
-        try{
+        try {
             PlantTypeEnum plantType = PlantTypeEnum.valueOf(value);
             ((MasterData) validationContainer.data()).setPlantType(plantType);
-        }
-        catch(IllegalArgumentException e){
-            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, PLANT_TYPE, validationContainer.lineNumber()));
+        } catch (IllegalArgumentException e) {
+            validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, PLANT_TYPE,
+                    validationContainer.lineNumber()));
             return;
         }
     }
-    private void validateAndParseSoundOptimization(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, SOUND_OPTIMIZATION, validationContainer.lineNumber()));
+
+    private void validateAndParseSoundOptimization(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, SOUND_OPTIMIZATION,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(ZERO.equals(value)){
-            ((MasterData)validationContainer.data()).setSoundOptimization(0);
+        if (ZERO.equals(value)) {
+            ((MasterData) validationContainer.data()).setSoundOptimization(0);
             return;
         }
-        if(ONE.equals(value)){
-            ((MasterData)validationContainer.data()).setSoundOptimization(1);
+        if (ONE.equals(value)) {
+            ((MasterData) validationContainer.data()).setSoundOptimization(1);
             return;
         }
-        if(TWO.equals(value)){
-            ((MasterData)validationContainer.data()).setSoundOptimization(2);
+        if (TWO.equals(value)) {
+            ((MasterData) validationContainer.data()).setSoundOptimization(2);
             return;
         }
-        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, SOUND_OPTIMIZATION, validationContainer.lineNumber()));
+        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, SOUND_OPTIMIZATION,
+                validationContainer.lineNumber()));
     }
-    private void validateAndParseIsBiomassBonus(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, BIOMASS_BONUS, validationContainer.lineNumber()));
+
+    private void validateAndParseIsBiomassBonus(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, BIOMASS_BONUS,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(ZERO.equals(value)){
-            ((MasterData)validationContainer.data()).setBiomassBonus(Boolean.FALSE);
+        if (ZERO.equals(value)) {
+            ((MasterData) validationContainer.data()).setBiomassBonus(Boolean.FALSE);
             return;
         }
-        if(ONE.equals(value)){
-            ((MasterData)validationContainer.data()).setBiomassBonus(Boolean.TRUE);
+        if (ONE.equals(value)) {
+            ((MasterData) validationContainer.data()).setBiomassBonus(Boolean.TRUE);
             return;
         }
-        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, BIOMASS_BONUS, validationContainer.lineNumber()));
+        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, BIOMASS_BONUS,
+                validationContainer.lineNumber()));
     }
-    private void validateAndParseIsBiomassTechnologyBonus(String value, ValidationContainer validationContainer){
-        if(StringUtils.isBlank(value)){
-            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, BIOMASS_TECHNOLOGY_BONUS, validationContainer.lineNumber()));
+
+    private void validateAndParseIsBiomassTechnologyBonus(String value, ValidationContainer validationContainer) {
+        if (StringUtils.isBlank(value)) {
+            validationContainer.errors().add(String.format(EMPTY_X_IN_LINE_X, BIOMASS_TECHNOLOGY_BONUS,
+                    validationContainer.lineNumber()));
             return;
         }
-        if(ZERO.equals(value)){
-            ((MasterData)validationContainer.data()).setBiomassTechnologyBonus(Boolean.FALSE);
+        if (ZERO.equals(value)) {
+            ((MasterData) validationContainer.data()).setBiomassTechnologyBonus(Boolean.FALSE);
             return;
         }
-        if(ONE.equals(value)){
-            ((MasterData)validationContainer.data()).setBiomassTechnologyBonus(Boolean.TRUE);
+        if (ONE.equals(value)) {
+            ((MasterData) validationContainer.data()).setBiomassTechnologyBonus(Boolean.TRUE);
             return;
         }
-        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, BIOMASS_TECHNOLOGY_BONUS, validationContainer.lineNumber()));
+        validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, BIOMASS_TECHNOLOGY_BONUS,
+                validationContainer.lineNumber()));
     }
-    private void validateDateRelations(ValidationContainer validationContainer){
+
+    private void validateDateRelations(ValidationContainer validationContainer) {
         MasterData masterData = (MasterData) validationContainer.data();
         Date startDate = masterData.getStartDate();
         Date endDate = masterData.getEndDate();
         Date modificationDate = masterData.getModificationDate();
-        if(endDate != null && startDate.after(endDate)){
-            validationContainer.errors().add(String.format(X_CAN_NOT_BE_AFTER_X_IN_LINE_X, startDate, endDate, validationContainer.lineNumber()));
+        if (endDate != null && startDate.after(endDate)) {
+            validationContainer.errors().add(String.format(X_CAN_NOT_BE_AFTER_X_IN_LINE_X, startDate, endDate,
+                    validationContainer.lineNumber()));
         }
-        if(modificationDate != null && modificationDate.after(endDate)){
-            validationContainer.errors().add(String.format(X_CAN_NOT_BE_AFTER_X_IN_LINE_X, modificationDate, endDate, validationContainer.lineNumber()));
+        if (modificationDate != null && endDate != null && modificationDate.after(endDate)) {
+            validationContainer.errors().add(String.format(X_CAN_NOT_BE_AFTER_X_IN_LINE_X, modificationDate, endDate,
+                    validationContainer.lineNumber()));
         }
-        if(modificationDate != null && startDate.after(modificationDate)){
-            validationContainer.errors().add(String.format(X_CAN_NOT_BE_AFTER_X_IN_LINE_X, startDate, modificationDate, validationContainer.lineNumber()));
+        if (modificationDate != null && startDate.after(modificationDate)) {
+            validationContainer.errors().add(String.format(X_CAN_NOT_BE_AFTER_X_IN_LINE_X, startDate,
+                    modificationDate, validationContainer.lineNumber()));
         }
     }
 }
