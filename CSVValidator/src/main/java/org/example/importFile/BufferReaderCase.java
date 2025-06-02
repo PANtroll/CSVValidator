@@ -35,7 +35,7 @@ public class BufferReaderCase implements CSVImport {
                 if (isLogging && lineNumber % 1_000_000 == 0) {
                     System.out.println(lineNumber);
                 }
-                if (line.startsWith(CSV_COMMENT)) {
+                if (line.charAt(0) == CSV_COMMENT_CHAR) {
                     lineNumber++;
                     continue;
                 }
@@ -44,7 +44,7 @@ public class BufferReaderCase implements CSVImport {
                     ValidationManager validation = new ValidationManager();
                     ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(),
                             masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                    if (validation.isValid(validationContainer, tokens)) {
+                    if (validation.isValid(validationContainer, tokens[0])) {
                         resultContainer.masterData().add(validationContainer.data());
                     } else {
                         resultContainer.errors().add(VALIDATION_ERROR + line);
@@ -54,7 +54,7 @@ public class BufferReaderCase implements CSVImport {
                     ValidationManager validation = new ValidationManager();
                     ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(),
                             masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                    if (validation.isValid(validationContainer, tokens)) {
+                    if (validation.isValid(validationContainer, tokens[0])) {
                         resultContainer.actualData().add(validationContainer.data());
                     } else {
                         resultContainer.errors().add(VALIDATION_ERROR + line);
