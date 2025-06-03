@@ -37,37 +37,33 @@ public class FileReaderCase implements CSVImport {
             int lineNumber = 0;
             Set<String> masterKeys = new HashSet<>();
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
-            List<String> tokensList = new LinkedList<>();
+//            List<String> tokensList = new LinkedList<>();
 //            String[] lines = buffer.split(NEW_LINE);
+            boolean isFirstChar = true;
             while (readChars > 0) {
                 for (int i = 0; i < readChars; i++) {
                     char c = buffer[i];
-                    if (c == CSV_COMMENT_CHAR) {
+                    if (isFirstChar && c == CSV_COMMENT_CHAR) {
                         while (c != NEW_LINE_CHAR) {
                             i++;
                             c = buffer[i];
                         }
                     }
                     if (c == CSV_DELIMITER_CHAR) {
-                        tokensList.add(tmpToken.toString());
-                        tmpToken = new StringBuilder();
+                        tmpToken.append(c);
                         continue;
                     }
                     if (c == CARRIAGE_RETURN_CHAR) {
                         continue;
                     }
                     if (c == NEW_LINE_CHAR) {
-                        tokensList.add(tmpToken.toString());
+                        String[] tokens = tmpToken.toString().split(CSV_DELIMITER);
                         tmpToken = new StringBuilder();
-                        String[] tokens = tokensList.toArray(new String[0]);
                         String firstToken = tokens[0];
                         lineNumber++;
+                        isFirstChar = true;
                         if (isLogging && lineNumber % 1_000_000 == 0) {
                             System.out.println(lineNumber);
-                        }
-                        if (StringUtils.isBlank(tokens[0])) {
-                            tokensList.clear();
-                            continue;
                         }
                         if (firstToken.equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
                             ValidationManager validation = new ValidationManager();
@@ -92,9 +88,9 @@ public class FileReaderCase implements CSVImport {
                         } else {
                             resultContainer.errors().add("Not correct numbers of column in row: " + lineNumber + " " + tmpToken);
                         }
-                        tokensList.clear();
                     } else {
                         tmpToken.append(c);
+                        isFirstChar = false;
                     }
                 }
                 readChars = fileReader.read(buffer);
