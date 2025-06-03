@@ -15,7 +15,7 @@ import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
 public class ScannerCase implements CSVImport {
-    private boolean isLogging = false;
+    private final boolean isLogging;
 
     public ScannerCase(boolean isLogging) {
         this.isLogging = isLogging;
@@ -26,7 +26,7 @@ public class ScannerCase implements CSVImport {
         ResultContainer resultContainer = new ResultContainer();
         File file = new File(fileName);
         try (Scanner scanner = new Scanner(file)) {
-            String line = "";
+            String line;
             int lineNumber = 1;
             Set<String> masterKeys = new HashSet<>();
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
@@ -39,26 +39,27 @@ public class ScannerCase implements CSVImport {
                 if (isLogging && lineNumber % 1_000_000 == 0) {
                     System.out.println(lineNumber);
                 }
-                if (line.startsWith(CSV_COMMENT)) {
+                if (line.charAt(0) == CSV_COMMENT_CHAR) {
                     lineNumber++;
                     continue;
                 }
                 String[] tokens = line.split(CSV_DELIMITER);
-                if (tokens[0].equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
+                String firstToken = tokens[0];
+                if (firstToken.equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
                     ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(),
                             masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                    if (validation.isValid(validationContainer, tokens)) {
+                    if (validation.isValid(validationContainer, firstToken)) {
                         resultContainer.masterData().add(validationContainer.data());
                     } else {
                         resultContainer.errors().add(VALIDATION_ERROR + line);
                         resultContainer.errors().addAll(validationContainer.errors());
                     }
-                } else if (tokens[0].equals(A) && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS) {
+                } else if (firstToken.equals(A) && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
                     ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(),
                             masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                    if (validation.isValid(validationContainer, tokens)) {
+                    if (validation.isValid(validationContainer, firstToken)) {
                         resultContainer.actualData().add(validationContainer.data());
                     } else {
                         resultContainer.errors().add(VALIDATION_ERROR + line);
