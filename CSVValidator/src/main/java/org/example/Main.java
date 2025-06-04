@@ -48,12 +48,16 @@ private static final boolean IS_LOGGING = true;
 
     private static void runTests() {
         List<CSVImport> tests = new ArrayList<>();
-        tests.add(new BufferReaderCase(IS_LOGGING));
-        tests.add(new ScannerCase(IS_LOGGING));
-        tests.add(new FilesLinesCase(IS_LOGGING));
-        tests.add(new FileReaderCase(IS_LOGGING));
-        tests.add(new CSVReaderCase(IS_LOGGING));
-        tests.add(new BufferReaderWithoutValidationCase(IS_LOGGING));
+//        tests.add(new BufferReaderCase(IS_LOGGING));
+//        tests.add(new ScannerCase(IS_LOGGING));
+//        tests.add(new FilesLinesCase(IS_LOGGING));
+//        tests.add(new FileReaderCase(IS_LOGGING));
+//        tests.add(new CSVReaderCase(IS_LOGGING));
+//        tests.add(new BufferReaderWithoutValidationCase(IS_LOGGING));
+//        tests.add(new ScannerWithoutValidation(IS_LOGGING));
+//        tests.add(new FilesLinesWithoutValidation(IS_LOGGING));
+//        tests.add(new FileReaderWithoutValidation(IS_LOGGING));
+        tests.add(new CSVReaderWithoutValidation(IS_LOGGING));
 
         ResultContainer lastResult = null;
         for (CSVImport importer : tests){
@@ -62,18 +66,20 @@ private static final boolean IS_LOGGING = true;
                 throw new RuntimeException("Not correct result!");
             }
             lastResult = result;
+            result = null;
         }
     }
 
     private static ResultContainer runWithStopwatch(CSVImport importer) {
         long startTime = System.currentTimeMillis();
         ResultContainer result = importer.readCSVFile(FILE_NAME);
+        long endTime = System.currentTimeMillis();
 //        result.masterData().forEach(System.out::println);
 //        result.actualData().forEach(System.out::println);
         System.out.println(importer + " Errors:\r\n");
         result.errors().forEach(System.out::println);
         if(!result.errors().isEmpty()) throw new RuntimeException();
-        System.out.println("Time for " + importer + ": " + (System.currentTimeMillis() - startTime)/1000f + "s");
+        System.out.println("Time for " + importer + ": " + (endTime - startTime)/1000f + "s");
         return result;
     }
 }

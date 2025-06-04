@@ -1,37 +1,39 @@
 package org.example.readers.without_validation;
 
-import org.apache.commons.lang3.StringUtils;
 import org.example.readers.BaseReader;
 import org.example.readers.CSVImport;
 import org.example.readers.ResultContainer;
 import org.example.readers.SplitUtil;
 import org.example.validation.ActualDataUnique;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+import java.util.stream.Stream;
 
-public class BufferReaderWithoutValidationCase extends BaseReader implements CSVImport {
+public class FilesLinesWithoutValidation extends BaseReader implements CSVImport {
     private final boolean isLogging;
 
-    public BufferReaderWithoutValidationCase(boolean isLogging) {
+    public FilesLinesWithoutValidation(boolean isLogging) {
         this.isLogging = isLogging;
     }
 
     @Override
     public ResultContainer readCSVFile(String fileName) {
         ResultContainer resultContainer = new ResultContainer();
-        File file = new File(fileName);
-        List<CSVLine> lines = new ArrayList<>();
-        Set<String> masterKeys = new HashSet<>();
+        Path path = Path.of(fileName);
+        final Set<String> masterKeys = new HashSet<>();
         Set<ActualDataUnique> actualDataUniques = new HashSet<>();
+        List<CSVLine> csvLines = new ArrayList<>();
 
-        readFile(fileName, file, lines);
+        readFile(fileName, path, csvLines);
 
-        for (int i = 0; i < lines.size(); i++) {
-            CSVLine csvLine = lines.get(i);
+        for (int i = 0; i < csvLines.size(); i++) {
+            CSVLine csvLine = csvLines.get(i);
             String line = csvLine.line();
             int lineNumber = csvLine.lineNumber();
             if (isLogging && lineNumber % 1_000_000 == 0) {
@@ -39,34 +41,34 @@ public class BufferReaderWithoutValidationCase extends BaseReader implements CSV
             }
             String[] tokens = SplitUtil.splitLine(line);
             validate(tokens, masterKeys, actualDataUniques, lineNumber, resultContainer);
-            lines.set(i, null);//free memory
+            csvLines.set(i, null);//free memory
         }
+
         return resultContainer;
     }
 
-    private void readFile(String fileName, File file, List<CSVLine> lines) {
-        int lineNumber = 1;
-        try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while (!StringUtils.isBlank(line = bufferedReader.readLine())) {
-                if (isLogging && lineNumber % 1_000_000 == 0) {
-                    System.out.println(lineNumber);
+    private void readFile(String fileName, Path path, List<CSVLine> csvLines) {
+        try (Stream<String> lines = Files.lines(path)) {
+            final int[] lineNumber = {1};
+            lines.forEach(line -> {
+                if (isLogging && lineNumber[0] % 1_000_000 == 0) {
+                    System.out.println(lineNumber[0]);
                 }
                 if (line.charAt(0) == CSV_COMMENT_CHAR) {
-                    lineNumber++;
-                    continue;
+                    lineNumber[0]++;
+                    return;
                 }
-                lines.add(new CSVLine(line, lineNumber));
-                lineNumber++;
-            }
+                csvLines.add(new CSVLine(line, lineNumber[0]));
+                lineNumber[0]++;
+            });
         } catch (IOException e) {
             System.out.println("Problem with file " + fileName + ": " + e);
+
         }
     }
 
-
     @Override
     public String toString() {
-        return "BufferReaderWithoutValidation";
+        return "FilesLinesWithoutValidation";
     }
 }
