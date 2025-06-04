@@ -9,16 +9,14 @@ import org.example.validation.ValidationManager;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Stream;
 
 import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
 public class FilesLinesCase implements CSVImport {
-    private boolean isLogging = false;
+    private final boolean isLogging;
 
     public FilesLinesCase(boolean isLogging) {
         this.isLogging = isLogging;
@@ -40,7 +38,8 @@ public class FilesLinesCase implements CSVImport {
                     lineNumber[0]++;
                     return;
                 }
-                String[] tokens = line.split(CSV_DELIMITER);
+//                String[] tokens = line.split(CSV_DELIMITER);
+                String[] tokens = SplitUtil.splitLine(line);
                 String firstToken = tokens[0];
                 if (firstToken.equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
