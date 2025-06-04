@@ -1,11 +1,14 @@
-package org.example.importFile;
+package org.example.readers;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.example.importFile.CSVImport.CSV_DELIMITER_CHAR;
+import static org.example.readers.CSVImport.CSV_DELIMITER_CHAR;
 
 public class SplitUtil {
+
+    private SplitUtil() {
+    }
 
     public static String[] splitLine(String line) {
         List<String> listOfStrings = new LinkedList<>();

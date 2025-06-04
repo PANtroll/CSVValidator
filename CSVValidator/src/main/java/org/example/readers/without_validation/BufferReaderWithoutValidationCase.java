@@ -4,6 +4,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.example.readers.BaseReader;
 import org.example.readers.CSVImport;
 import org.example.readers.ResultContainer;
+import org.example.readers.SplitUtil;
 import org.example.validation.ActualDataUnique;
 
 import java.io.BufferedReader;
@@ -35,7 +36,8 @@ public class BufferReaderWithoutValidationCase extends BaseReader implements CSV
             if (isLogging && lineNumber % 1_000_000 == 0) {
                 System.out.println(lineNumber);
             }
-            validate(line, masterKeys, actualDataUniques, lineNumber, resultContainer);
+            String[] tokens = SplitUtil.splitLine(line);
+            validate(tokens, masterKeys, actualDataUniques, lineNumber, resultContainer);
             lines.set(i, null);//free memory
         }
         return resultContainer;

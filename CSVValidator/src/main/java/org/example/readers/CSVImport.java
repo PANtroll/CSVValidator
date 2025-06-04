@@ -1,4 +1,4 @@
-package org.example.importFile;
+package org.example.readers;
 
 public interface CSVImport {
 

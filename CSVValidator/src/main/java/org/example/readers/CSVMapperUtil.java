@@ -1,4 +1,4 @@
-package org.example.importFile;
+package org.example.readers;
 
 import org.example.model.*;
 import org.example.validation.ValidationUtil;
@@ -6,7 +6,7 @@ import org.example.validation.ValidationUtil;
 import java.math.BigDecimal;
 import java.util.Arrays;
 
-public class CSVMapperUtil {
+public class CSVMapperUtil {//todo remove
 
     public static MasterData fillMasterDataByCSV(String[] csvLine){
         MasterData masterData = new MasterData();

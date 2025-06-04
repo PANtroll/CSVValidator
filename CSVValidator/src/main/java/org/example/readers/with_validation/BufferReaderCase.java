@@ -1,8 +1,12 @@
-package org.example.importFile;
+package org.example.readers.with_validation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.example.model.ActualData;
 import org.example.model.MasterData;
+import org.example.readers.BaseReader;
+import org.example.readers.CSVImport;
+import org.example.readers.ResultContainer;
+import org.example.readers.SplitUtil;
 import org.example.validation.ActualDataUnique;
 import org.example.validation.ValidationContainer;
 import org.example.validation.ValidationManager;
@@ -16,7 +20,7 @@ import java.util.*;
 import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
-public class BufferReaderCase implements CSVImport {
+public class BufferReaderCase extends BaseReader implements CSVImport {
     private final boolean isLogging;
     public BufferReaderCase(boolean isLogging) {
         this.isLogging = isLogging;
@@ -39,33 +43,8 @@ public class BufferReaderCase implements CSVImport {
                     lineNumber++;
                     continue;
                 }
-//                String[] tokens = line.split(CSV_DELIMITER);
                 String[] tokens = SplitUtil.splitLine(line);
-                String firstToken = tokens[0];
-                if (firstToken.equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
-                    ValidationManager validation = new ValidationManager();
-                    ValidationContainer validationContainer = new ValidationContainer(tokens, new MasterData(),
-                            masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                    if (validation.isValid(validationContainer, firstToken)) {
-                        resultContainer.masterData().add(validationContainer.data());
-                    } else {
-                        resultContainer.errors().add(VALIDATION_ERROR + line);
-                        resultContainer.errors().addAll(validationContainer.errors());
-                    }
-                } else if (firstToken.equals(A) && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS) {
-                    ValidationManager validation = new ValidationManager();
-                    ValidationContainer validationContainer = new ValidationContainer(tokens, new ActualData(),
-                            masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                    if (validation.isValid(validationContainer, firstToken)) {
-                        resultContainer.actualData().add(validationContainer.data());
-                    } else {
-                        resultContainer.errors().add(VALIDATION_ERROR + line);
-                        resultContainer.errors().addAll(validationContainer.errors());
-                    }
-                } else {
-                    resultContainer.errors().add("Not correct numbers of column in row: " + lineNumber + " " + line);
-                }
-
+                validate(tokens, masterKeys, actualDataUniques, lineNumber, resultContainer);
                 line = bufferedReader.readLine();
                 lineNumber++;
             }

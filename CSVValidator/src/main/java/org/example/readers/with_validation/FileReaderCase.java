@@ -1,8 +1,11 @@
-package org.example.importFile;
+package org.example.readers.with_validation;
 
 import org.apache.commons.lang3.StringUtils;
 import org.example.model.ActualData;
 import org.example.model.MasterData;
+import org.example.readers.BaseReader;
+import org.example.readers.CSVImport;
+import org.example.readers.ResultContainer;
 import org.example.validation.ActualDataUnique;
 import org.example.validation.ValidationContainer;
 import org.example.validation.ValidationManager;
@@ -15,7 +18,7 @@ import java.util.*;
 import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
-public class FileReaderCase implements CSVImport {
+public class FileReaderCase extends BaseReader implements CSVImport {
 
     public static final char NEW_LINE_CHAR = '\n';
     public static final String NEW_LINE = "\n";
@@ -60,7 +63,6 @@ public class FileReaderCase implements CSVImport {
                         tokensList.add(tmpToken.toString());
                         tmpToken = new StringBuilder();
                         String[] tokens = tokensList.toArray(new String[0]);
-                        String firstToken = tokens[0];
                         lineNumber++;
                         if (isLogging && lineNumber % 1_000_000 == 0) {
                             System.out.println(lineNumber);
@@ -69,29 +71,7 @@ public class FileReaderCase implements CSVImport {
                             tokensList.clear();
                             continue;
                         }
-                        if (firstToken.equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
-                            ValidationManager validation = new ValidationManager();
-                            ValidationContainer validationContainer = new ValidationContainer(tokens,
-                                    new MasterData(), masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                            if (validation.isValid(validationContainer, firstToken)) {
-                                resultContainer.masterData().add(validationContainer.data());
-                            } else {
-                                resultContainer.errors().add(VALIDATION_ERROR + Arrays.toString(tokens));
-                                resultContainer.errors().addAll(validationContainer.errors());
-                            }
-                        } else if (firstToken.equals(A) && tokens.length == NUMBER_OF_ACTUAL_DATA_FIELDS) {
-                            ValidationManager validation = new ValidationManager();
-                            ValidationContainer validationContainer = new ValidationContainer(tokens,
-                                    new ActualData(), masterKeys, actualDataUniques, new LinkedList<>(), lineNumber);
-                            if (validation.isValid(validationContainer, firstToken)) {
-                                resultContainer.actualData().add(validationContainer.data());
-                            } else {
-                                resultContainer.errors().add(VALIDATION_ERROR + Arrays.toString(tokens));
-                                resultContainer.errors().addAll(validationContainer.errors());
-                            }
-                        } else {
-                            resultContainer.errors().add("Not correct numbers of column in row: " + lineNumber + " " + tmpToken);
-                        }
+                        validate(tokens, masterKeys, actualDataUniques, lineNumber, resultContainer);
                         tokensList.clear();
                     } else {
                         tmpToken.append(c);

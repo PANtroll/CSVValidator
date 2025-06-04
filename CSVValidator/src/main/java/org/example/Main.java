@@ -1,19 +1,22 @@
 package org.example;
 
-import org.example.importFile.*;
+import org.example.readers.CSVImport;
+import org.example.readers.ResultContainer;
+import org.example.readers.with_validation.*;
+import org.example.readers.without_validation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
 
-//    public static final String FILE_NAME = "generated_100mb.csv";
+    public static final String FILE_NAME = "generated_100mb.csv";
 //    public static final String FILE_NAME = "generated_250mb.csv";
 //    public static final String FILE_NAME = "generated_500mb.csv";
 //    public static final String FILE_NAME = "generated_1gb.csv";
 //    public static final String FILE_NAME = "generated_2gb.csv";
 //    public static final String FILE_NAME = "generated_4gb.csv";
-    public static final String FILE_NAME = "generated_8gb.csv";
+//    public static final String FILE_NAME = "generated.csv";
 //    public static final String FILE_NAME = "generated_5.csv";
 private static final boolean IS_LOGGING = true;
 
@@ -45,11 +48,12 @@ private static final boolean IS_LOGGING = true;
 
     private static void runTests() {
         List<CSVImport> tests = new ArrayList<>();
-//        tests.add(new BufferReaderCase(IS_LOGGING));
-//        tests.add(new ScannerCase(IS_LOGGING));
-//        tests.add(new FilesLinesCase(IS_LOGGING));
-//        tests.add(new FileReaderCase(IS_LOGGING));
+        tests.add(new BufferReaderCase(IS_LOGGING));
+        tests.add(new ScannerCase(IS_LOGGING));
+        tests.add(new FilesLinesCase(IS_LOGGING));
+        tests.add(new FileReaderCase(IS_LOGGING));
         tests.add(new CSVReaderCase(IS_LOGGING));
+        tests.add(new BufferReaderWithoutValidationCase(IS_LOGGING));
 
         ResultContainer lastResult = null;
         for (CSVImport importer : tests){
