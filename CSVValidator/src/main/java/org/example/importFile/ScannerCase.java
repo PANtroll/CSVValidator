@@ -43,7 +43,8 @@ public class ScannerCase implements CSVImport {
                     lineNumber++;
                     continue;
                 }
-                String[] tokens = line.split(CSV_DELIMITER);
+//                String[] tokens = line.split(CSV_DELIMITER);
+                String[] tokens = SplitUtil.splitLine(line);
                 String firstToken = tokens[0];
                 if (firstToken.equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
                     ValidationManager validation = new ValidationManager();
