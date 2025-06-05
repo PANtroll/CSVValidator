@@ -61,8 +61,9 @@ public class CSVReaderWithoutValidation extends BaseReader implements CSVImport 
                     lineNumber++;
                     continue;
                 }
-                String line = Arrays.stream(tokens).reduce(StringUtils.EMPTY, (str1, str2) -> str1.concat(CSV_DELIMITER).concat(str2));
-                csvLines.add(new CSVLine(line.substring(1), lineNumber));
+
+                String line = String.join(CSV_DELIMITER, tokens);
+                csvLines.add(new CSVLine(line, lineNumber));
                 lineNumber++;
                 tokens = reader.readNext();
             }
