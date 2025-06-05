@@ -50,11 +50,11 @@ public class ScannerWithoutValidation extends BaseReader implements CSVImport {
             while (scanner.hasNextLine()) {
                 line = scanner.nextLine();
                 lineNumber++;
-                if (StringUtils.isBlank(line)) {
-                    continue;
-                }
                 if (isLogging && lineNumber % 1_000_000 == 0) {
                     System.out.println(lineNumber);
+                }
+                if (StringUtils.isBlank(line)) {
+                    continue;
                 }
                 if (line.charAt(0) == CSV_COMMENT_CHAR) {
                     lineNumber++;

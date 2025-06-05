@@ -1,22 +1,18 @@
 package org.example.readers.with_validation;
 
 import org.apache.commons.lang3.StringUtils;
-import org.example.model.ActualData;
-import org.example.model.MasterData;
 import org.example.readers.BaseReader;
 import org.example.readers.CSVImport;
 import org.example.readers.ResultContainer;
 import org.example.validation.ActualDataUnique;
-import org.example.validation.ValidationContainer;
-import org.example.validation.ValidationManager;
 
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
-
-import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
-import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Set;
 
 public class FileReaderCase extends BaseReader implements CSVImport {
 
@@ -36,12 +32,13 @@ public class FileReaderCase extends BaseReader implements CSVImport {
         try (FileReader fileReader = new FileReader(file)) {
             char[] buffer = new char[8_192];
             int readChars = fileReader.read(buffer);
-            StringBuilder tmpToken = new StringBuilder();
             int lineNumber = 0;
             Set<String> masterKeys = new HashSet<>();
             Set<ActualDataUnique> actualDataUniques = new HashSet<>();
             List<String> tokensList = new LinkedList<>();
-//            String[] lines = buffer.split(NEW_LINE);
+            boolean isNewBuffered = false;
+            int lastIndex = 0;
+            String restOfLine = "";
             while (readChars > 0) {
                 for (int i = 0; i < readChars; i++) {
                     char c = buffer[i];
@@ -52,16 +49,18 @@ public class FileReaderCase extends BaseReader implements CSVImport {
                         }
                     }
                     if (c == CSV_DELIMITER_CHAR) {
-                        tokensList.add(tmpToken.toString());
-                        tmpToken = new StringBuilder();
+                        addNewToken(isNewBuffered, restOfLine, buffer, lastIndex, i, tokensList);
+                        lastIndex = i + 1;
+                        isNewBuffered = false;
                         continue;
                     }
                     if (c == CARRIAGE_RETURN_CHAR) {
                         continue;
                     }
                     if (c == NEW_LINE_CHAR) {
-                        tokensList.add(tmpToken.toString());
-                        tmpToken = new StringBuilder();
+                        addNewToken(isNewBuffered, restOfLine, buffer, lastIndex, i - 1, tokensList);
+                        lastIndex = i + 1;
+                        isNewBuffered = false;
                         String[] tokens = tokensList.toArray(new String[0]);
                         lineNumber++;
                         if (isLogging && lineNumber % 1_000_000 == 0) {
@@ -73,10 +72,17 @@ public class FileReaderCase extends BaseReader implements CSVImport {
                         }
                         validate(tokens, masterKeys, actualDataUniques, lineNumber, resultContainer);
                         tokensList.clear();
-                    } else {
-                        tmpToken.append(c);
                     }
                 }
+                if (lastIndex < readChars) {
+                    if (buffer[readChars - 1] == CARRIAGE_RETURN_CHAR) {
+                        restOfLine = new String(buffer, lastIndex, readChars - lastIndex - 1);
+                    } else {
+                        restOfLine = new String(buffer, lastIndex, readChars - lastIndex);
+                    }
+                    isNewBuffered = true;
+                }
+                lastIndex = 0;
                 readChars = fileReader.read(buffer);
             }
 
@@ -86,6 +92,17 @@ public class FileReaderCase extends BaseReader implements CSVImport {
         }
 
         return resultContainer;
+    }
+
+    private void addNewToken(boolean isNewBuffered, String restOfLine, char[] buffer, int lastIndex, int i,
+                             List<String> tokensList) {
+        String tmpToken;
+        if (isNewBuffered) {
+            tmpToken = restOfLine + new String(buffer, lastIndex, Math.max(0, i - lastIndex));
+        } else {
+            tmpToken = new String(buffer, lastIndex, i - lastIndex);
+        }
+        tokensList.add(tmpToken);
     }
 
     @Override

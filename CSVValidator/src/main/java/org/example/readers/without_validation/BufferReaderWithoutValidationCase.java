@@ -11,7 +11,10 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class BufferReaderWithoutValidationCase extends BaseReader implements CSVImport {
     private final boolean isLogging;
@@ -48,9 +51,12 @@ public class BufferReaderWithoutValidationCase extends BaseReader implements CSV
         int lineNumber = 1;
         try (BufferedReader bufferedReader = new BufferedReader(new FileReader(file))) {
             String line;
-            while (!StringUtils.isBlank(line = bufferedReader.readLine())) {
+            while (null != (line = bufferedReader.readLine())) {
                 if (isLogging && lineNumber % 1_000_000 == 0) {
                     System.out.println(lineNumber);
+                }
+                if (StringUtils.isBlank(line)) {
+                    continue;
                 }
                 if (line.charAt(0) == CSV_COMMENT_CHAR) {
                     lineNumber++;
