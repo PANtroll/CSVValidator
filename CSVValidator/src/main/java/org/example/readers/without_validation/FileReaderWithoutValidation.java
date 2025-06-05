@@ -26,12 +26,11 @@ public class FileReaderWithoutValidation extends BaseReader implements CSVImport
     @Override
     public ResultContainer readCSVFile(String fileName) {
         ResultContainer resultContainer = new ResultContainer();
-        File file = new File(fileName);
         Set<String> masterKeys = new HashSet<>();
         Set<ActualDataUnique> actualDataUniques = new HashSet<>();
         List<CSVLine> csvLines = new ArrayList<>();
 
-        readFile(fileName, file, csvLines);
+        readFile(fileName, csvLines);
 
         for (int i = 0; i < csvLines.size(); i++) {
             CSVLine csvTokens = csvLines.get(i);
@@ -47,13 +46,15 @@ public class FileReaderWithoutValidation extends BaseReader implements CSVImport
         return resultContainer;
     }
 
-    private void readFile(String fileName, File file, List<CSVLine> csvLines) {
+    private void readFile(String fileName, List<CSVLine> csvLines) {
+        File file = new File(fileName);
         try (FileReader fileReader = new FileReader(file)) {
             char[] buffer = new char[8_192];
             int readChars = fileReader.read(buffer);
-            StringBuilder tmpToken = new StringBuilder();
             int lineNumber = 0;
-            List<String> tokensList = new LinkedList<>();
+            boolean isLoading = false;
+            int lastIndex = 0;
+            String restOfLine = "";
             while (readChars > 0) {
                 for (int i = 0; i < readChars; i++) {
                     char c = buffer[i];
@@ -63,33 +64,36 @@ public class FileReaderWithoutValidation extends BaseReader implements CSVImport
                             c = buffer[i];
                         }
                     }
-                    if (c == CSV_DELIMITER_CHAR) {
-                        tokensList.add(tmpToken.toString());
-                        tmpToken = new StringBuilder();
-                        continue;
-                    }
-                    if (c == CARRIAGE_RETURN_CHAR) {
-                        continue;
-                    }
                     if (c == NEW_LINE_CHAR) {
-                        tokensList.add(tmpToken.toString());
-                        tmpToken = new StringBuilder();
-                        String[] tokens = tokensList.toArray(new String[0]);
+                        String line;
+                        if(isLoading){
+                            line = restOfLine + new String(buffer, lastIndex, Math.max (0, i - lastIndex - 1));
+                            isLoading = false;
+                        }
+                        else {
+                            line = new String(buffer, lastIndex, i - lastIndex - 1);
+                        }
+                        lastIndex = i + 1;
                         lineNumber++;
                         if (isLogging && lineNumber % 1_000_000 == 0) {
                             System.out.println(lineNumber);
                         }
-                        if (StringUtils.isBlank(tokens[0])) {
-                            tokensList.clear();
+                        if (StringUtils.isBlank(line)) {
                             continue;
                         }
-                        String line = Arrays.stream(tokens).reduce(StringUtils.EMPTY, (str1, str2) -> str1.concat(CSV_DELIMITER).concat(str2));
-                        csvLines.add(new CSVLine(line.substring(1), lineNumber));
-                        tokensList.clear();
-                    } else {
-                        tmpToken.append(c);
+                        csvLines.add(new CSVLine(line, lineNumber));
                     }
                 }
+                if(lastIndex < readChars){
+                    if(buffer[readChars - 1] == CARRIAGE_RETURN_CHAR){
+                        restOfLine = new String(buffer, lastIndex, readChars - lastIndex - 1);
+                    }
+                    else {
+                        restOfLine = new String(buffer, lastIndex, readChars - lastIndex);
+                    }
+                    isLoading = true;
+                }
+                lastIndex = 0;
                 readChars = fileReader.read(buffer);
             }
         } catch (IOException e) {
