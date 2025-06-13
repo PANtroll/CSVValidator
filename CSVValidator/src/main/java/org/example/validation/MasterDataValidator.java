@@ -1,14 +1,11 @@
 package org.example.validation;
 
 import org.apache.commons.lang3.StringUtils;
-import org.example.model.MasterData;
-import org.example.model.PlantTypeEnum;
-import org.example.model.PowerTypeEnum;
-import org.example.model.VoltageLevelEnum;
+import org.example.model.*;
 
 import java.util.Date;
 
-public class MasterDataValidator implements CSVValidator {
+class MasterDataValidator implements CSVValidator {
 
     public static final String MASTER_KEY = "Master Key";
     public static final String CITY = "City";

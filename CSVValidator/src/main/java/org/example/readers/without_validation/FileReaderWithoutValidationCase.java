@@ -12,14 +12,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class FileReaderWithoutValidation extends BaseReader implements CSVImport {
+public class FileReaderWithoutValidationCase extends BaseReader implements CSVImport {
 
     public static final char NEW_LINE_CHAR = '\n';
     public static final String NEW_LINE = "\n";
     public static final char CARRIAGE_RETURN_CHAR = '\r';
     private final boolean isLogging;
 
-    public FileReaderWithoutValidation(boolean isLogging) {
+    public FileReaderWithoutValidationCase(boolean isLogging) {
         this.isLogging = isLogging;
     }
 

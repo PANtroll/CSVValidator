@@ -11,10 +11,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.*;
 
-public class ScannerWithoutValidation extends BaseReader implements CSVImport {
+public class ScannerWithoutValidationCase extends BaseReader implements CSVImport {
     private final boolean isLogging;
 
-    public ScannerWithoutValidation(boolean isLogging) {
+    public ScannerWithoutValidationCase(boolean isLogging) {
         this.isLogging = isLogging;
     }
 

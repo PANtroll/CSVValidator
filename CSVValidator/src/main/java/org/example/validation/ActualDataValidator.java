@@ -7,7 +7,7 @@ import org.example.model.DataReportTypeEnum;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class ActualDataValidator implements CSVValidator {
+class ActualDataValidator implements CSVValidator {
 
 
     public static final String DATE = "Date";

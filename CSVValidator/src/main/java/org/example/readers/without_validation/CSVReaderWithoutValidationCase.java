@@ -5,7 +5,6 @@ import com.opencsv.CSVParserBuilder;
 import com.opencsv.CSVReader;
 import com.opencsv.CSVReaderBuilder;
 import com.opencsv.exceptions.CsvValidationException;
-import org.apache.commons.lang3.StringUtils;
 import org.example.readers.BaseReader;
 import org.example.readers.CSVImport;
 import org.example.readers.ResultContainer;
@@ -17,10 +16,10 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class CSVReaderWithoutValidation extends BaseReader implements CSVImport {
+public class CSVReaderWithoutValidationCase extends BaseReader implements CSVImport {
     private final boolean isLogging;
 
-    public CSVReaderWithoutValidation(boolean isLogging) {
+    public CSVReaderWithoutValidationCase(boolean isLogging) {
         this.isLogging = isLogging;
     }
 

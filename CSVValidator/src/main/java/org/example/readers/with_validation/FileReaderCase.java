@@ -30,7 +30,7 @@ public class FileReaderCase extends BaseReader implements CSVImport {
         ResultContainer resultContainer = new ResultContainer();
         File file = new File(fileName);
         try (FileReader fileReader = new FileReader(file)) {
-            char[] buffer = new char[8_192];
+            char[] buffer = new char[256];
             int readChars = fileReader.read(buffer);
             int lineNumber = 0;
             Set<String> masterKeys = new HashSet<>();

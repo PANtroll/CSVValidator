@@ -1,12 +1,7 @@
 package org.example.validation;
 
-import org.apache.commons.lang3.StringUtils;
-
-import java.time.DateTimeException;
 import java.time.LocalDateTime;
 import java.time.ZoneOffset;
-import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 
@@ -15,6 +10,8 @@ import static org.example.validation.MasterDataValidator.INVALID_X_IN_LINE_X;
 
 public class ValidationUtil {
 
+    private ValidationUtil() {
+    }
 
     public static final String MINUS = "-";
 

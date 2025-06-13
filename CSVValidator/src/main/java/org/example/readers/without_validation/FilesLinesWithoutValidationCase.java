@@ -15,10 +15,10 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Stream;
 
-public class FilesLinesWithoutValidation extends BaseReader implements CSVImport {
+public class FilesLinesWithoutValidationCase extends BaseReader implements CSVImport {
     private final boolean isLogging;
 
-    public FilesLinesWithoutValidation(boolean isLogging) {
+    public FilesLinesWithoutValidationCase(boolean isLogging) {
         this.isLogging = isLogging;
     }
 
