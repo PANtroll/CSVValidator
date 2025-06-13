@@ -1,27 +1,22 @@
 package org.example.readers.with_validation;
 
 import org.apache.commons.lang3.StringUtils;
-import org.example.model.ActualData;
-import org.example.model.MasterData;
 import org.example.readers.BaseReader;
 import org.example.readers.CSVImport;
 import org.example.readers.ResultContainer;
 import org.example.readers.SplitUtil;
 import org.example.validation.ActualDataUnique;
-import org.example.validation.ValidationContainer;
-import org.example.validation.ValidationManager;
 
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
-
-import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
-import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
+import java.util.HashSet;
+import java.util.Set;
 
 public class BufferReaderCase extends BaseReader implements CSVImport {
     private final boolean isLogging;
+
     public BufferReaderCase(boolean isLogging) {
         this.isLogging = isLogging;
     }

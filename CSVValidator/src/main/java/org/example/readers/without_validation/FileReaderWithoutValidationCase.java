@@ -10,7 +10,10 @@ import org.example.validation.ActualDataUnique;
 import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 public class FileReaderWithoutValidationCase extends BaseReader implements CSVImport {
 
@@ -66,11 +69,10 @@ public class FileReaderWithoutValidationCase extends BaseReader implements CSVIm
                     }
                     if (c == NEW_LINE_CHAR) {
                         String line;
-                        if(isLoading){
-                            line = restOfLine + new String(buffer, lastIndex, Math.max (0, i - lastIndex - 1));
+                        if (isLoading) {
+                            line = restOfLine + new String(buffer, lastIndex, Math.max(0, i - lastIndex - 1));
                             isLoading = false;
-                        }
-                        else {
+                        } else {
                             line = new String(buffer, lastIndex, i - lastIndex - 1);
                         }
                         lastIndex = i + 1;
@@ -84,11 +86,10 @@ public class FileReaderWithoutValidationCase extends BaseReader implements CSVIm
                         csvLines.add(new CSVLine(line, lineNumber));
                     }
                 }
-                if(lastIndex < readChars){
-                    if(buffer[readChars - 1] == CARRIAGE_RETURN_CHAR){
+                if (lastIndex < readChars) {
+                    if (buffer[readChars - 1] == CARRIAGE_RETURN_CHAR) {
                         restOfLine = new String(buffer, lastIndex, readChars - lastIndex - 1);
-                    }
-                    else {
+                    } else {
                         restOfLine = new String(buffer, lastIndex, readChars - lastIndex);
                     }
                     isLoading = true;

@@ -12,14 +12,12 @@ import java.util.Set;
 
 import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
 import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
-import static org.example.readers.CSVImport.M;
-import static org.example.readers.CSVImport.A;
-import static org.example.readers.CSVImport.VALIDATION_ERROR;
+import static org.example.readers.CSVImport.*;
 
 public class BaseReader {
 
     protected void validate(String[] tokens, Set<String> masterKeys, Set<ActualDataUnique> actualDataUniques,
-                                 int lineNumber, ResultContainer resultContainer) {
+                            int lineNumber, ResultContainer resultContainer) {
         String firstToken = tokens[0];
         if (firstToken.equals(M) && tokens.length == NUMBER_OF_MASTER_DATA_FIELDS) {
             ValidationManager validation = new ValidationManager();

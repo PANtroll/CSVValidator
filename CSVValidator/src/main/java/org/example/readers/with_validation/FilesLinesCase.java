@@ -1,23 +1,17 @@
 package org.example.readers.with_validation;
 
-import org.example.model.ActualData;
-import org.example.model.MasterData;
 import org.example.readers.BaseReader;
 import org.example.readers.CSVImport;
 import org.example.readers.ResultContainer;
 import org.example.readers.SplitUtil;
 import org.example.validation.ActualDataUnique;
-import org.example.validation.ValidationContainer;
-import org.example.validation.ValidationManager;
 
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Set;
 import java.util.stream.Stream;
-
-import static org.example.model.ActualData.NUMBER_OF_ACTUAL_DATA_FIELDS;
-import static org.example.model.MasterData.NUMBER_OF_MASTER_DATA_FIELDS;
 
 public class FilesLinesCase extends BaseReader implements CSVImport {
     private final boolean isLogging;
@@ -42,7 +36,6 @@ public class FilesLinesCase extends BaseReader implements CSVImport {
                     lineNumber[0]++;
                     return;
                 }
-//                String[] tokens = line.split(CSV_DELIMITER);
                 String[] tokens = SplitUtil.splitLine(line);
                 validate(tokens, masterKeys, actualDataUniques, lineNumber[0], resultContainer);
                 lineNumber[0]++;

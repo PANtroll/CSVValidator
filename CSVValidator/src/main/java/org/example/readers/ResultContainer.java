@@ -11,12 +11,4 @@ public record ResultContainer(List<String> csvLine, List<CSVData> masterData, Li
 
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
-
-    public ResultContainer(List<String> csvLine, List<CSVData> masterData, List<CSVData> actualData,
-                           List<String> errors) {
-        this.csvLine = csvLine;
-        this.masterData = masterData;
-        this.actualData = actualData;
-        this.errors = errors;
-    }
 }
