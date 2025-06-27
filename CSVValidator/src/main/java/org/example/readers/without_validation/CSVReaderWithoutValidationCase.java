@@ -59,8 +59,9 @@ public class CSVReaderWithoutValidationCase extends BaseReader implements CSVImp
                 if (isLogging && lineNumber % 1_000_000 == 0) {
                     System.out.println(lineNumber);
                 }
-                if (tokens[0].charAt(0) == CSV_COMMENT_CHAR) {
+                if (tokens.length == 0 || tokens[0].charAt(0) == CSV_COMMENT_CHAR) {
                     lineNumber++;
+                    tokens = reader.readNext();
                     continue;
                 }
 

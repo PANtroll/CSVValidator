@@ -32,13 +32,11 @@ public class FilesLinesCase extends BaseReader implements CSVImport {
                 if (isLogging && lineNumber[0] % 1_000_000 == 0) {
                     System.out.println(lineNumber[0]);
                 }
-                if (line.charAt(0) == CSV_COMMENT_CHAR) {
-                    lineNumber[0]++;
-                    return;
-                }
-                String[] tokens = SplitUtil.splitLine(line);
-                validate(tokens, masterKeys, actualDataUniques, lineNumber[0], resultContainer);
                 lineNumber[0]++;
+                if (!line.isBlank() && line.charAt(0) != CSV_COMMENT_CHAR) {
+                    String[] tokens = SplitUtil.splitLine(line);
+                    validate(tokens, masterKeys, actualDataUniques, lineNumber[0], resultContainer);
+                }
             });
         } catch (IOException e) {
             System.out.println("Problem with file " + fileName + ": " + e);

@@ -30,7 +30,7 @@ public class Main {
         try {
             runTests();
             //test manually
-//            runWithStopwatch(new BufferReaderCase(IS_LOGGING), null, FILE_NAME_100MB);
+//            runWithStopwatch(new BufferReaderWithoutValidationCase(IS_LOGGING), null, FILE_NAME_4GB);
         } catch (Throwable e) {
             System.out.println("Error: " + e.getMessage());
         }
@@ -48,7 +48,7 @@ public class Main {
 
         try(BufferedWriter br = new BufferedWriter(new FileWriter("results.txt"))) {
 
-            for (int i = 0; i < 1; i++) {//todo ilosc wywolan?
+            for (int i = 0; i < 10; i++) {
                 System.gc();
                 for (String fileName : files) {
                     int masterDataSize = 0;

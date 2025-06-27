@@ -6,7 +6,7 @@ import java.util.Random;
 
 public class RandomActualDataCategory implements Generable<String> {
 
-    private static final List<String> categorise = Arrays.asList("CAT1", "CAT2", "CAT3", "CAT4", "CAT4", "CAT5");//todo make some categorise
+    private static final List<String> categorise = Arrays.asList("CAT1", "CAT2", "CAT3", "CAT4", "CAT4", "CAT5");
 
     @Override
     public String generate(String... args) {

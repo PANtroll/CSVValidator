@@ -54,12 +54,10 @@ public class FilesLinesWithoutValidationCase extends BaseReader implements CSVIm
                 if (isLogging && lineNumber[0] % 1_000_000 == 0) {
                     System.out.println(lineNumber[0]);
                 }
-                if (line.charAt(0) == CSV_COMMENT_CHAR) {
-                    lineNumber[0]++;
-                    return;
-                }
-                csvLines.add(new CSVLine(line, lineNumber[0]));
                 lineNumber[0]++;
+                if (!line.isBlank() && line.charAt(0) != CSV_COMMENT_CHAR) {
+                    csvLines.add(new CSVLine(line, lineNumber[0]));
+                }
             });
         } catch (IOException e) {
             System.out.println("Problem with file " + fileName + ": " + e);

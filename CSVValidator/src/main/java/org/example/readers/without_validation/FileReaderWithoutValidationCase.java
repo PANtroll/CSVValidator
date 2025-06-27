@@ -52,7 +52,7 @@ public class FileReaderWithoutValidationCase extends BaseReader implements CSVIm
     private void readFile(String fileName, List<CSVLine> csvLines) {
         File file = new File(fileName);
         try (FileReader fileReader = new FileReader(file)) {
-            char[] buffer = new char[8_192];
+            char[] buffer = new char[256];
             int readChars = fileReader.read(buffer);
             int lineNumber = 0;
             boolean isLoading = false;

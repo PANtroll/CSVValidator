@@ -35,6 +35,7 @@ public class BufferReaderCase extends BaseReader implements CSVImport {
                     System.out.println(lineNumber);
                 }
                 if (line.charAt(0) == CSV_COMMENT_CHAR) {
+                    line = bufferedReader.readLine();
                     lineNumber++;
                     continue;
                 }
