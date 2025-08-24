@@ -1,0 +1,543 @@
+Wyniki statystycznie istotne:
+
+formatka
+	200MB:
+		1. BufferedReader 	 +- 
+		   FilesLines		 +- 
+		3. FileReader		 +- 
+		4. CSVReader		 +- 
+		5. Scanner			 +- 
+		
+
+kolejność w testach:
+x1 BufferedReader
+x2 CSVReader
+x3 FileReader
+x4 FilesLines
+x5 Scanner
+
+
+PROGRAM:
+Czas z walidacją:
+	100MB:
+		1. BufferedReader 	1,2132 +- 0,0146
+		   FilesLines		1,2397 +- 0,0229
+		3. FileReader		1,2555 +- 0,0317
+		4. CSVReader		1,5446 +- 0,0406
+		5. Scanner			1,5842 +- 0,0202
+		
+	250MB:
+		1. BufferedReader 	3,3884 +- 0,0642
+		   FilesLines		3,3662 +- 0,0423
+		   FileReader		3,3853 +- 0,0708
+		4. CSVReader		4,1175 +- 0,0613
+		5. Scanner			4,3661 +- 0,0553
+		
+	500MB:
+		1. BufferedReader 	7,0428 +- 0,0873
+		   FilesLines		7,1334 +- 0,0913
+		   FileReader		7,1591 +- 0,1264
+		4. CSVReader		8,5686 +- 0,1038
+		5. Scanner			8,8937 +- 0,0778
+		
+	1000MB:
+		1. BufferedReader 	15,1795 +- 0,2700
+		   FilesLines		15,3611 +- 0,3649
+		   FileReader		15,5235 +- 0,2279
+		4. CSVReader		18,3282 +- 0,3106
+		5. Scanner			19,0324 +- 0,2864
+		
+	2000MB:
+		1. BufferedReader 	33,5323 +- 0,6541
+		   FilesLines		33,4886 +- 0,9459
+		   FileReader		33,9831 +- 0,9153
+		4. CSVReader		39,9556 +- 0,7643
+		   Scanner			40,6501 +- 0,4455
+		
+	4000MB:
+		1. BufferedReader 	71,2149 +- 0,9146
+		   FilesLines		72,1217 +- 1,2817
+		3. FileReader		73,6195 +- 1,8676
+		4. CSVReader		85,3368 +- 1,9552
+		   Scanner			86,7090 +- 0,8807
+
+Czas bez walidacji:
+	100MB:
+		1. BufferedReader 	1,2909 +- 0,0404
+		   FilesLines		1,3322 +- 0,0683
+		3. FileReader		1,4785 +- 0,0521
+		4. Scanner			1,6682 +- 0,0648
+		5. CSVReader		2,0854 +- 0,0241
+		
+	250MB:
+		1. BufferedReader 	3,5450 +- 0,0777
+		   FilesLines		3,5696 +- 0,0919
+		3. FileReader		3,9592 +- 0,0718
+		4. Scanner			4,4097 +- 0,0694
+		5. CSVReader		5,4413 +- 0,0654
+		
+	500MB:
+		1. BufferedReader 	7,5990 +- 0,1467
+		   FilesLines		7,6366 +- 0,1617
+		3. FileReader		8,5500 +- 0,1780
+		4. Scanner			9,3291 +- 0,0815
+		5. CSVReader		11,348 +- 0,1369
+		
+	1000MB:
+		1. BufferedReader 	16,2573 +- 0,3214
+		   FilesLines		16,4325 +- 0,3226
+		3. FileReader		18,2620 +- 0,2770
+		4. Scanner			19,8788 +- 0,1545
+		5. CSVReader		23,9469 +- 0,2946
+		
+	2000MB:
+		1. BufferedReader 	34,6697 +- 0,2876
+		   FilesLines		34,9119 +- 0,3145
+		3. FileReader		38,2761 +- 0,5834
+		4. Scanner			41,6611 +- 0,4038
+		5. CSVReader		50,3638 +- 0,6215
+		
+	4000MB:
+		1. BufferedReader 	82,04780 +- 1,0226
+		   FilesLines		82,37724 +- 1,6762
+		3. FileReader		89,06790 +- 1,8620
+		4. Scanner			96,85550 +- 1,8375
+		5. CSVReader		113,3892 +- 1,3930
+		
+Pamięć z walidacją
+	100MB:
+		1. BufferedReader 	1364,893 +- 249,5654
+		   CSVReader		1271,412 +- 191,6596
+		   FileReader		1343,611 +- 213,0927
+		   FilesLines		1296,804 +- 234,5462
+		5. Scanner			1877,235 +- 345,9040
+		
+	250MB:
+		1. BufferedReader 	1567,90049 +- 387,0240
+		   CSVReader		1893,38138 +- 283,1066
+		   FileReader		1778,80385 +- 286,3041
+		   FilesLines		1784,59402 +- 489,9603
+		5. Scanner			2268,51800 +- 148,0305
+		
+	500MB:
+		1. BufferedReader 	2824,43984 +- 433,2710
+		   CSVReader		2779,14387 +- 387,7206
+		   FileReader		2859,47089 +- 431,0696
+		   FilesLines		3184,94332 +- 161,3151
+		   Scanner			2908,31761 +- 547,9612
+		
+	1000MB:
+		1. BufferedReader 	4814,10585 +- 409,5102
+		   CSVReader		4814,23709 +- 316,6532
+		   FileReader		4870,06617 +- 400,8001
+		   FilesLines		4817,92392 +- 388,6173
+		5. Scanner			6134,54348 +- 332,2017
+		
+	2000MB:
+		1. BufferedReader 	9150,79205 +- 555,7822
+		   CSVReader		8873,20520 +- 340,5675
+		   FileReader		8986,49260 +- 252,8290
+		   FilesLines		9104,63550 +- 414,4406
+		   Scanner			9126,63640 +- 580,6748
+		
+	4000MB:
+		1. BufferedReader 	16522,8887 +- 149,7614
+		   CSVReader		16573,2997 +- 220,8436
+		   FileReader		16410,0906 +- 140,4358
+		   FilesLines		16355,6488 +-  79,5800
+		   Scanner			16495,5791 +- 180,3795
+		
+Pamięć bez walidacji:
+	100MB:
+		1. BufferedReader 	1776,0822 +-  71,7552
+		   CSVReader		1678,1428 +- 304,6989
+		   FileReader		1658,3620 +- 124,5109
+		   FilesLines		1739,1028 +-  99,1034
+		   Scanner			1786,0820 +- 131,9593
+		
+	250MB:	?
+		1. BufferedReader 	1776,08221 +-  71,7552
+		2. CSVReader		2272,85301 +- 490,9617
+		   FileReader		2251,01161 +- 255,9982
+		   FilesLines		1920,94335 +- 281,7442
+		   Scanner			2280,80127 +- 377,1771
+		
+	500MB:
+		1. BufferedReader 	3296,16666 +- 430,4864
+		   CSVReader		3186,25629 +- 342,1227
+		   FileReader		3254,54882 +- 371,6528
+		   FilesLines		3332,43019 +- 503,7702
+		   Scanner			3287,51170 +- 347,5628
+		
+	1000MB:
+		1. BufferedReader 	5984,32636 +- 595,8156
+		   CSVReader		5622,13492 +- 781,8124
+		   FileReader		5678,65136 +- 783,8375
+		   FilesLines		6083,24342 +- 349,2771
+		   Scanner			5576,36809 +- 569,0702
+		
+	2000MB:
+		1. BufferedReader 	10276,3417 +- 864,3248
+		   CSVReader		10510,7663 +- 702,2045
+		   FileReader		10279,9343 +- 502,4219
+		   FilesLines		10366,5286 +- 707,2230
+		   Scanner			10082,1954 +- 432,8968
+		
+	4000MB:
+		1. BufferedReader 	16255,7578 +- 351,9986
+		   CSVReader		16269,3161 +- 476,8100
+		   FileReader		16276,4945 +- 369,8260
+		   FilesLines		16296,4255 +- 388,3306
+		   Scanner			16530,3970 +- 158,6798
+		
+		
+		
+		
+PROFLIER:
+czas całkowity z walidacją
+	100MB:
+		1. BufferedReader 	1,457 +- 0,041
+		   FilesLines		1,543 +- 0,089
+		3. FileReader		1,643 +- 0,042
+		   Scanner			1,744 +- 0,049
+		   CSVReader		1,821 +- 0,103
+		
+	250MB:
+		1. BufferedReader 	3,404 +- 0,065
+		   FilesLines		3,299 +- 0,021
+		3. FileReader		3,585 +- 0,029
+		4. CSVReader		4,074 +- 0,031
+		5. Scanner			4,286 +- 0,041
+		
+	500MB:
+		1. BufferedReader 	6,565 +- 0,027
+		   FilesLines		6,677 +- 0,127
+		3. FileReader		7,657 +- 0,460
+		4. CSVReader		8,201 +- 0,040
+		   Scanner			8,416 +- 0,092
+		
+	1000MB:
+		1. BufferedReader 	13,448 +- 0,451
+		   FilesLines		13,789 +- 0,441
+		3. FileReader		14,806 +- 0,337
+		4. Scanner			16,884 +- 0,314
+		5. CSVReader		17,070 +- 0,370
+		
+	2000MB:
+		1. BufferedReader 	29,641 +- 0,727
+		   FilesLines		29,614 +- 0,869
+		3. FileReader		32,247 +- 1,130
+		4. CSVReader		35,940 +- 0,528
+		   Scanner			35,792 +- 0,096
+		
+	4000MB:
+		1. FilesLines		59,653 +- 2,489
+		2. BufferedReader 	65,920 +- 3,051
+		   FileReader		67,248 +- 1,117
+		4. Scanner			72,719 +- 2,273
+		   CSVReader		77,906 +- 0,511
+		
+czas całkowity bez walidacji
+	100MB:
+		1. BufferedReader 	1,568 +- 0,060
+		   FilesLines		1,581 +- 0,030
+		   FileReader		1,710 +- 0,066
+		4. Scanner			1,924 +- 0,051
+		5. CSVReader		2,116 +- 0,066
+		
+	250MB:
+		1. BufferedReader 	3,374 +- 0,070
+		   FilesLines		3,453 +- 0,060
+		   FileReader		3,680 +- 0,250
+		4. Scanner			4,380 +- 0,097
+		5. CSVReader		5,344 +- 0,086
+		
+	500MB:
+		1. BufferedReader 	6,741 +- 0,073
+		   FilesLines		6,782 +- 0,171
+		3. FileReader		7,579 +- 0,069
+		4. Scanner			8,542 +- 0,267
+		5. CSVReader		10,540 +- 0,151
+		
+	1000MB:
+		1. BufferedReader 	14,444 +- 0,195
+		   FilesLines		14,336 +- 0,265
+		3. FileReader		16,278 +- 0,344
+		4. Scanner			18,053 +- 0,199
+		5. CSVReader		21,552 +- 0,312
+		
+	2000MB:
+		1. BufferedReader 	30,904 +- 0,626
+		   FilesLines		30,523 +- 1,157
+		3. FileReader		33,904 +- 1,945
+		4. Scanner			37,399 +- 0,648
+		5. CSVReader		46,030 +- 1,016
+		
+	4000MB:
+		1. BufferedReader 	65,907 +- 0,517
+		   FilesLines		67,667 +- 0,646
+		3. FileReader		72,905 +- 0,613
+		4. Scanner			78,268 +- 3,389
+		5. CSVReader		96,317 +- 0,285
+		
+		
+czas walidacji z walidacją
+	100MB:
+		1. BufferedReader 	1,013 +- 0,158
+		   CSVReader		1,121 +- 0,132
+		   FileReader		1,034 +- 0,081
+		   FilesLines		1,068 +- 0,041
+		   Scanner			0,948 +- 0,043
+		
+	250MB:
+		1. BufferedReader 	2,391 +- 0,057
+		   CSVReader		2,288 +- 0,040
+		   FileReader		2,337 +- 0,090
+		   FilesLines		2,292 +- 0,113
+		   Scanner			2,432 +- 0,005
+		
+	500MB:
+		1. BufferedReader 	4,812 +- 0,066
+		   CSVReader		4,571 +- 0,131
+		   FileReader		4,809 +- 0,163
+		   FilesLines		4,694 +- 0,104
+		   Scanner			4,675 +- 0,062
+		
+	1000MB:
+		1. BufferedReader 	9,981 +- 0,508
+		   CSVReader		9,916 +- 0,359
+		   FileReader		10,188 +- 0,377
+		   FilesLines		9,833 +- 0,205
+		   Scanner			9,794 +- 0,408
+		
+	2000MB:
+		1. BufferedReader 	21,842 +- 0,634
+		   CSVReader		21,311 +- 0,362
+		   FileReader		21,987 +- 0,670
+		   FilesLines		21,657 +- 0,596
+		   Scanner			21,328 +- 0,410
+		
+	4000MB:
+		1. BufferedReader 	49,940 +- 3,183
+		   CSVReader		48,290 +- 0,485
+		   FileReader		47,369 +- 0,826
+		   FilesLines		44,606 +- 1,576
+		   Scanner			45,681 +- 0,705
+	
+czas walidacji bez walidacji	
+	100MB:
+		1. BufferedReader 	1,028 +- 0,013
+		   CSVReader		0,929 +- 0,033
+		   FileReader		1,054 +- 0,022
+		   FilesLines		1,116 +- 0,048
+		   Scanner			1,038 +- 0,047
+		
+	250MB:
+		1. BufferedReader 	2,183 +- 0,032
+		   CSVReader		2,366 +- 0,096
+		   FileReader		2,278 +- 0,014
+		   FilesLines		2,361 +- 0,144
+		   Scanner			2,501 +- 0,021
+		
+	500MB:
+		1. BufferedReader 	4,689 +- 0,193
+		   CSVReader		4,778 +- 0,141
+		   FileReader		4,808 +- 0,218
+		   FilesLines		4,650 +- 0,145
+		   Scanner			4,775 +- 0,200
+		
+	1000MB:
+		1. BufferedReader 	10,175 +- 0,286
+		   CSVReader		10,006 +- 0,091
+		   FileReader		10,203 +- 0,160
+		   FilesLines		10,119 +- 0,319
+		   Scanner			10,630 +- 0,161
+		
+	2000MB:
+		1. BufferedReader 	22,403 +- 0,409
+		   CSVReader		22,954 +- 0,380
+		   FileReader		21,948 +- 1,370
+		   FilesLines		21,841 +- 0,968
+		   Scanner			22,189 +- 0,204
+		
+	4000MB:
+		1. BufferedReader 	48,256 +- 0,710
+		   CSVReader		48,357 +- 0,665
+		   FileReader		47,976 +- 0,485
+		   FilesLines		49,248 +- 1,681
+		   Scanner			47,700 +- 2,442
+	
+
+czas WCZYTYWANIA z walidacją:
+	100MB:
+		1. BufferedReader 	0,444 +- 0,151
+		   CSVReader		0,700 +- 0,030
+		   FileReader		0,609 +- 0,087
+		   FilesLines		0,475 +- 0,081
+		   Scanner			0,796 +- 0,090
+		
+	250MB:
+		1. BufferedReader 	1,014 +- 0,021
+		   FilesLines		1,006 +- 0,114
+		3. FileReader		1,248 +- 0,065
+		4. CSVReader		1,786 +- 0,045
+		   Scanner			1,854 +- 0,041
+		
+	500MB:
+		1. BufferedReader 	1,752 +- 0,040
+		   FilesLines		1,984 +- 0,225
+		3. FileReader		2,848 +- 0,311
+		4. CSVReader		3,630 +- 0,117
+		   Scanner			3,740 +- 0,052
+		
+	1000MB:
+		1. BufferedReader 	3,467 +- 0,058
+		   FilesLines		3,956 +- 0,369
+		3. FileReader		4,618 +- 0,132
+		4. CSVReader		7,154 +- 0,011
+		   Scanner			7,090 +- 0,122
+		
+	2000MB:
+		1. BufferedReader 	7,799 +- 0,584
+		   FilesLines		7,957 +- 0,277
+		3. FileReader		10,260 +- 1,610
+		4. CSVReader		14,632 +- 0,397
+		   Scanner			14,464 +- 0,346
+		
+	4000MB:
+		1. BufferedReader 	15,979 +- 0,513
+		   FilesLines		15,047 +- 0,959
+		3. FileReader		19,879 +- 0,486
+		5. Scanner			27,054 +- 1,574
+		4. CSVReader		29,616 +- 0,209
+		
+czas WCZYTYWANIA bez walidacji:
+	100MB:
+		1. BufferedReader 	0,540 +- 0,074
+		   FileReader		0,655 +- 0,058
+		   FilesLines		0,465 +- 0,078
+		4. Scanner			0,886 +- 0,034
+		5. CSVReader		1,220 +- 0,150
+		
+	250MB:
+		1. BufferedReader 	1,190 +- 0,063
+		   FileReader		1,248 +- 0,065
+		   FilesLines		1,082 +- 0,197
+		4. Scanner			1,879 +- 0,081
+		5. CSVReader		2,978 +- 0,132
+		
+	500MB:
+		1. BufferedReader 	2,052 +- 0,152
+		   FilesLines		2,132 +- 0,191
+		3. FileReader		2,772 +- 0,256
+		4. Scanner			3,767 +- 0,077
+		5. CSVReader		5,762 +- 0,147
+		
+	1000MB:
+		1. BufferedReader 	4,269 +- 0,246
+		   FilesLines		4,217 +- 0,153
+		3. FileReader		6,076 +- 0,477
+		4. Scanner			7,423 +- 0,121
+		5. CSVReader		11,546 +- 0,223
+		
+	2000MB:
+		1. BufferedReader 	8,600 +- 0,184
+		   FilesLines		8,682 +- 0,399
+		3. FileReader		11,956 +- 0,581
+		4. Scanner			15,209 +- 0,497
+		5. CSVReader		23,076 +- 0,637
+		
+	4000MB:
+		1. BufferedReader 	17,652 +- 0,292
+		   FilesLines		18,419 +- 1,141
+		3. FileReader		24,929 +- 0,153
+		4. Scanner			30,537 +- 1,010
+		5. CSVReader		47,960 +- 0,754
+		
+		
+		
+całkowita zaalokowana pamięć z walidacją:
+	100MB:
+		1. CSVReader		1,680 +- 0,000
+		   FileReader		1,680 +- 0,000
+		3. BufferedReader 	1,773 +- 0,006
+		   FilesLines		1,757 +- 0,012
+		5. Scanner			2,257 +- 0,006
+		
+	250MB:
+		1. FileReader		4,130 +- 0,000
+		2. CSVReader		4,157 +- 0,006
+		3. BufferedReader 	4,377 +- 0,006
+		   FilesLines		4,380 +- 0,000
+		5. Scanner			5,583 +- 0,006
+		
+	500MB:
+		1. FileReader		8,240 +- 0,000
+		2. CSVReader		8,297 +- 0,006
+		3. BufferedReader 	8,750 +- 0,000
+		   FilesLines		8,750 +- 0,000
+		5. Scanner			11,140 +- 0,000
+		
+	1000MB:
+		1. FileReader		16,477 +- 0,023
+		2. CSVReader		16,580 +- 0,000
+		3. BufferedReader 	17,490 +- 0,000
+		   FilesLines		17,463 +- 0,023
+		5. Scanner			22,277 +- 0,029
+		
+	2000MB:
+		1. FileReader		32,917 +- 0,006
+		2. CSVReader		33,190 +- 0,000
+		3. BufferedReader 	34,970 +- 0,052
+		   FilesLines		34,943 +- 0,049
+		5. Scanner			44,630 +- 0,000
+		
+	4000MB:
+		1. FileReader		65,803 +- 0,006
+		2. CSVReader		66,180 +- 0,010
+		3. BufferedReader 	69,733 +- 0,107
+		   FilesLines		69,730 +- 0,104
+		5. Scanner			89,050 +- 0,000
+		
+całkowita zaalokowana pamięć bez walidacji:
+	100MB:
+		1. BufferedReader 	1,813 +- 0,012
+		   FilesLines		1,807 +- 0,012
+		   FileReader		1,887 +- 0,012
+		4. Scanner			2,323 +- 0,065
+		5. CSVReader		2,853 +- 0,012
+		
+	250MB:
+		1. BufferedReader 	4,503 +- 0,006
+		   FilesLines		4,460 +- 0,069
+		3. FileReader		4,717 +- 0,012
+		4. Scanner			5,833 +- 0,107
+		5. CSVReader		7,103 +- 0,006
+		
+	500MB:
+		1. BufferedReader 	8,957 +- 0,006
+		   FilesLines		8,957 +- 0,012
+		3. FileReader		9,383 +- 0,006
+		4. Scanner			11,500 +- 0,225
+		5. CSVReader		14,170 +- 0,010
+		
+	1000MB:
+		1. BufferedReader 	17,913 +- 0,023
+		   FilesLines		17,907 +- 0,006
+		3. FileReader		18,743 +- 0,021
+		4. Scanner			22,977 +- 0,445
+		5. CSVReader		28,340 +- 0,026
+		
+	2000MB:
+		1. BufferedReader 	35,920 +- 0,052
+		   FilesLines		35,890 +- 0,052
+		3. FileReader		37,520 +- 0,052
+		4. Scanner			46,000 +- 0,883
+		5. CSVReader		56,687 +- 0,006
+		
+	4000MB:
+		1. BufferedReader 	71,790 +- 0,000
+		   FilesLines		71,587 +- 0,344
+		3. FileReader		74,937 +- 0,133
+		4. Scanner			90,917 +- 0,115
+		5. CSVReader		113,433 +- 0,006
