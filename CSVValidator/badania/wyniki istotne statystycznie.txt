@@ -1,12 +1,11 @@
 Wyniki statystycznie istotne:
 
-formatka
-	200MB:
-		1. BufferedReader 	 +- 
-		   FilesLines		 +- 
-		3. FileReader		 +- 
-		4. CSVReader		 +- 
-		5. Scanner			 +- 
+podsumowanie
+		1. BufferedReader 
+		   FilesLines
+		3. FileReader
+		4. CSVReader
+		5. Scanner
 		
 
 kolejność w testach:
@@ -541,3 +540,4 @@ całkowita zaalokowana pamięć bez walidacji:
 		3. FileReader		74,937 +- 0,133
 		4. Scanner			90,917 +- 0,115
 		5. CSVReader		113,433 +- 0,006
+		
