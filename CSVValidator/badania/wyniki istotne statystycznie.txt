@@ -154,9 +154,9 @@ Pamięć bez walidacji:
 		   FilesLines		1739,1028 +-  99,1034
 		   Scanner			1786,0820 +- 131,9593
 		
-	250MB:	?
+	250MB:
 		1. BufferedReader 	1776,08221 +-  71,7552
-		2. CSVReader		2272,85301 +- 490,9617
+		   CSVReader		2272,85301 +- 490,9617
 		   FileReader		2251,01161 +- 255,9982
 		   FilesLines		1920,94335 +- 281,7442
 		   Scanner			2280,80127 +- 377,1771
@@ -407,8 +407,8 @@ czas WCZYTYWANIA z walidacją:
 		1. BufferedReader 	15,979 +- 0,513
 		   FilesLines		15,047 +- 0,959
 		3. FileReader		19,879 +- 0,486
-		5. Scanner			27,054 +- 1,574
-		4. CSVReader		29,616 +- 0,209
+		4. Scanner			27,054 +- 1,574
+		5. CSVReader		29,616 +- 0,209
 		
 czas WCZYTYWANIA bez walidacji:
 	100MB:
