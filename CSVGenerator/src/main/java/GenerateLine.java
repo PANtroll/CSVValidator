@@ -16,7 +16,7 @@ public class GenerateLine {
     private final Generable<Long> randomLong = new RandomLong();
     private final Generable<Integer> randomIntRange = new RandomIntegerRange();
     private final Generable<String> randomKeyId = new RandomKeyId();
-    private final Geterable<String> randomKeyIdGetter = (Geterable<String>) randomKeyId;
+    private final GenerableRandomKey<String> randomKeyIdGetter = (GenerableRandomKey<String>) randomKeyId;
     private final Generable<BigDecimal> randomBigDecimal = new RandomBigDecimal();
     private final Generable<String> randomStringMax = new RandomStringMax();
     private final Generable<String> randomString = new RandomString();
@@ -93,9 +93,6 @@ public class GenerateLine {
             isBiomassTechnologyBonus = randomInt.generate("1");
         }
         stringBuilder.append(isBiomassTechnologyBonus);//biomass technology bonus
-
-
-
 
         stringBuilder.append(NEW_LINE);
         return stringBuilder.toString();

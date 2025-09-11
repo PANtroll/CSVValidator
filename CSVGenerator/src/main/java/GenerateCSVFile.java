@@ -2,8 +2,8 @@ import java.io.*;
 
 public class GenerateCSVFile {
 
-    public static final int NUMBER_OF_GENERATED_FIRST_SECTION_LINES = 8*1_200_000;//1gb
-    public static final int NUMBER_OF_GENERATED_SECOND_SECTION_LINES = 8*10_800_000;//1gb
+    public static final int NUMBER_OF_GENERATED_FIRST_SECTION_LINES = 4*1_200_000;//1gb
+    public static final int NUMBER_OF_GENERATED_SECOND_SECTION_LINES = 4*10_800_000;//1gb
 //    public static final int NUMBER_OF_GENERATED_FIRST_SECTION_LINES = 250 * 1_200;//1mb
 //    public static final int NUMBER_OF_GENERATED_SECOND_SECTION_LINES = 250 * 10_800;//1mb
 

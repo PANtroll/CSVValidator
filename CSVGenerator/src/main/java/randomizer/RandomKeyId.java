@@ -2,10 +2,11 @@ package randomizer;
 
 import java.util.*;
 
-public class RandomKeyId implements Generable<String>, Geterable<String> {
+public class RandomKeyId implements GenerableRandomKey<String> {
     public static final String KEY_PREFIX = "EC1048EN00P";
     public static final String MIN_VALUE = "100000000000000000";
     public static final String MAX_VALUE = "999999999999999999";
+    public static final Random R = new Random();
     private final Set<String> keyIdsSet = new HashSet<>();
     private final List<String> keyIdsList = new ArrayList<>();
     private final RandomLong randomLong = new RandomLong();
@@ -39,7 +40,6 @@ public class RandomKeyId implements Generable<String>, Geterable<String> {
             }
             keyIdsList.addAll(keyIdsSet);
         }
-        Random r = new Random();
-        return keyIdsList.get(r.nextInt(keyIdsList.size() - 1));
+        return keyIdsList.get(R.nextInt(keyIdsList.size() - 1));
     }
 }
