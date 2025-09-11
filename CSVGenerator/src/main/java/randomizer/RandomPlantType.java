@@ -4,28 +4,21 @@ import java.util.Random;
 
 public class RandomPlantType implements Generable<String> {
 
+    public static final Random RANDOM = new Random();
+
     @Override
     public String generate(String... args) {
-        Random random = new Random();
-        switch (random.nextInt(8)) {
-            case 0:
-                return Type.SOLAR.name();
-            case 1:
-                return Type.BIOMASS.name();
-            case 2:
-                return Type.COAL.name();
-            case 3:
-                return Type.WIND.name();
-            case 4:
-                return Type.ATOM.name();
-            case 5:
-                return Type.WATER.name();
-            case 6:
-                return Type.GAS.name();
-            case 7:
-                return Type.GEOTHERMAL.name();
-        }
-        return Type.SOLAR.name();
+        return switch (RANDOM.nextInt(8)) {
+            case 0 -> Type.SOLAR.name();
+            case 1 -> Type.BIOMASS.name();
+            case 2 -> Type.COAL.name();
+            case 3 -> Type.WIND.name();
+            case 4 -> Type.ATOM.name();
+            case 5 -> Type.WATER.name();
+            case 6 -> Type.GAS.name();
+            case 7 -> Type.GEOTHERMAL.name();
+            default -> Type.SOLAR.name();
+        };
     }
 
     private enum Type {

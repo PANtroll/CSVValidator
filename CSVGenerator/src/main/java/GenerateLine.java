@@ -23,7 +23,6 @@ public class GenerateLine {
     private final Generable<String> randomType = new RandomActualDataType();
     private final Generable<Date> randomDate = new RandomDate();
     private final Generable<String> randomPlantType = new RandomPlantType();
-    private final Generable<RandomParagraphType.Type> randomParagraph = new RandomParagraphType();
     private final ActualDataHelper actualDataHelper = new ActualDataHelper();
 
     public String generateMetaData() {
