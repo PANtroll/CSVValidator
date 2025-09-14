@@ -1,5 +1,0 @@
-Pytania do pracy:
-
-1. Jak cytować źródła anglojęzyczne? - czy podawać gdzieś orginalny tekst? czy pisać coś w stylu tł. własne w przypisie
-2. Czy zawsze musimyu podawć strony w przypsach? co w przypadku źródeł intenertowych?
-3. Ile razy powtarzać wyniki testu programu? 10?
