@@ -68,7 +68,7 @@ class ActualDataValidator implements CSVValidator {
         try {
             DataReportTypeEnum dataReportType = DataReportTypeEnum.valueOf(value);
             ((ActualData) validationContainer.data()).setDataReportType(dataReportType);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, DATA_REPORT_TYPE, validationContainer.lineNumber()));
         }
     }
@@ -89,7 +89,7 @@ class ActualDataValidator implements CSVValidator {
                 return;
             }
             ((ActualData) validationContainer.data()).setYear(year);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, YEAR, validationContainer.lineNumber()));
         }
     }
@@ -110,7 +110,7 @@ class ActualDataValidator implements CSVValidator {
                 return;
             }
             ((ActualData) validationContainer.data()).setMonth(month);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, MONTH, validationContainer.lineNumber()));
         }
     }
@@ -131,7 +131,7 @@ class ActualDataValidator implements CSVValidator {
                 return;
             }
             ((ActualData) validationContainer.data()).setDay(day);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, DAY, validationContainer.lineNumber()));
         }
     }
@@ -153,7 +153,7 @@ class ActualDataValidator implements CSVValidator {
                 return;
             }
             ((ActualData) validationContainer.data()).setQuantity(quantity);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, QUANTITY, validationContainer.lineNumber()));
         }
     }
@@ -175,7 +175,7 @@ class ActualDataValidator implements CSVValidator {
                 return;
             }
             ((ActualData) validationContainer.data()).setAmount(amount);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, AMOUNT, validationContainer.lineNumber()));
         }
     }

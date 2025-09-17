@@ -177,7 +177,7 @@ class MasterDataValidator implements CSVValidator {
                 return;
             }
             ((MasterData) validationContainer.data()).setFuel(fuel);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, FUEL,
                     validationContainer.lineNumber()));
         }
@@ -228,7 +228,7 @@ class MasterDataValidator implements CSVValidator {
                 return;
             }
             ((MasterData) validationContainer.data()).setPower(power);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, POWER,
                     validationContainer.lineNumber()));
         }
@@ -248,7 +248,7 @@ class MasterDataValidator implements CSVValidator {
         try {
             PowerTypeEnum plantType = PowerTypeEnum.valueOf(value);
             ((MasterData) validationContainer.data()).setPowerType(plantType);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, POWER_TYPE,
                     validationContainer.lineNumber()));
         }
@@ -286,7 +286,7 @@ class MasterDataValidator implements CSVValidator {
         try {
             VoltageLevelEnum voltageLevel = VoltageLevelEnum.valueOf(value);
             ((MasterData) validationContainer.data()).setVoltageLevel(voltageLevel);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, VOLTAGE_LEVEL,
                     validationContainer.lineNumber()));
         }
@@ -315,7 +315,7 @@ class MasterDataValidator implements CSVValidator {
         try {
             PlantTypeEnum plantType = PlantTypeEnum.valueOf(value);
             ((MasterData) validationContainer.data()).setPlantType(plantType);
-        } catch (IllegalArgumentException e) {
+        } catch (IllegalArgumentException _) {
             validationContainer.errors().add(String.format(INVALID_X_VALUE_IN_LINE_X, PLANT_TYPE,
                     validationContainer.lineNumber()));
             return;

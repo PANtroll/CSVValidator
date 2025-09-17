@@ -21,36 +21,35 @@ public class Main {
     public static final String FILE_NAME_1GB = "generated_1gb.csv";
     public static final String FILE_NAME_2GB = "generated_2gb.csv";
     public static final String FILE_NAME_4GB = "generated_4gb.csv";
-    //    public static final String FILE_NAME = "generated.csv";
-//    public static final String FILE_NAME = "generated_5.csv";
     private static final boolean IS_LOGGING = false;
     public static final String DELIMITER = ";";
     public static final int NUMBER_OF_TESTS = 10;
-    private static final int TOTAL_TESTS = 10 * NUMBER_OF_TESTS * 6;
-    private static int TEST_NUMBER = 0;
+    private static final int TOTAL_TESTS = 10 * NUMBER_OF_TESTS;
+    private static int testNumber = 0;
 
     public static void main(String[] args) {
 
         try {
             runTests();
 //            test manually
-//            runWithStopwatch(new BufferReaderCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new ScannerCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new FilesLinesCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new FileReaderCase(IS_LOGGING), null, FILE_NAME_2GB);
-//            runWithStopwatch(new CSVReaderCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new BufferReaderWithoutValidationCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new ScannerWithoutValidationCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new FilesLinesWithoutValidationCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new FileReaderWithoutValidationCase(IS_LOGGING), null, FILE_NAME_4GB);
-//            runWithStopwatch(new CSVReaderWithoutValidationCase(IS_LOGGING), null, FILE_NAME_2GB);
+//            String testFile = FILE_NAME_100MB;
+//            runWithStopwatch(new BufferReaderCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new ScannerCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new FilesLinesCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new FileReaderCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new CSVReaderCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new BufferReaderWithoutValidationCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new ScannerWithoutValidationCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new FilesLinesWithoutValidationCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new FileReaderWithoutValidationCase(IS_LOGGING), null, testFile);
+//            runWithStopwatch(new CSVReaderWithoutValidationCase(IS_LOGGING), null, testFile);
 
-        } catch (Throwable e) {
+        } catch (IllegalStateException e) {
             System.out.println("Error: " + e.getMessage());
         }
     }
 
-    private static void runTests() throws InterruptedException {
+    private static void runTests() {
 
         List<String> files = new ArrayList<>();
         files.add(FILE_NAME_100MB);
@@ -82,14 +81,14 @@ public class Main {
                     for (CSVImport importer : tests) {
                         ResultContainer result = runWithStopwatch(importer, br, fileName);
                         if (result == null || !result.errors().isEmpty()) {
-                            throw new RuntimeException("Not correct result!");
+                            throw new IllegalStateException("Not correct result!");
                         }
                         if (masterDataSize == 0) {
                             masterDataSize = result.masterData().size();
                             actualDataSize = result.actualData().size();
                         } else if (result.masterData().size() != masterDataSize
                                 || result.actualData().size() != actualDataSize) {
-                            throw new RuntimeException("Not correct result!");
+                            throw new IllegalStateException("Not correct result!");
                         }
                         result = null;//clear memory
                         tests.set(tests.indexOf(importer), null);
@@ -98,7 +97,7 @@ public class Main {
                     }
                 }
             }
-        } catch (IOException e){
+        } catch (IOException | InterruptedException e){
             System.out.println("Error: " + e.getMessage());
         }
     }
@@ -111,14 +110,11 @@ public class Main {
         ResultContainer result = importer.readCSVFile(fileName);
         long endTime = System.currentTimeMillis();
         MemoryUsage memoryUsage = mbean.getHeapMemoryUsage();
-//        result.masterData().forEach(System.out::println);
-//        result.actualData().forEach(System.out::println);
-//        System.out.println(importer + " Errors:\r\n");
         result.errors().forEach(System.out::println);
-        if (!result.errors().isEmpty()) throw new RuntimeException();
+        if (!result.errors().isEmpty()) throw new IllegalStateException();
         System.out.println("Memory for " + importer + ":\t\t" + (memoryUsage.getUsed() - startMemoryUsage.getUsed()) / 1000000f + "MB");
         System.out.println("Time for " + importer + ":\t\t" + (endTime - startTime) / 1000f + "s");
-        System.out.println(++TEST_NUMBER + "/" + TOTAL_TESTS);
+        System.out.println(++testNumber + "/" + TOTAL_TESTS);
         if(br != null){
             br.write(importer + DELIMITER + fileName.substring(NUMBER_OF_TESTS, fileName.length()-4) + DELIMITER + (endTime - startTime) / 1000f + DELIMITER +
                     (memoryUsage.getUsed() - startMemoryUsage.getUsed()) / 1000000f + "\n");

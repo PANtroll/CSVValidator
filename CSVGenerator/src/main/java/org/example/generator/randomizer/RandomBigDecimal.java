@@ -1,6 +1,7 @@
-package randomizer;
+package org.example.generator.randomizer;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 public class RandomBigDecimal implements Generable<BigDecimal> {
     /**
@@ -15,7 +16,7 @@ public class RandomBigDecimal implements Generable<BigDecimal> {
         BigDecimal max = new BigDecimal(range);
         BigDecimal randFromDouble = BigDecimal.valueOf(Math.random());
         BigDecimal actualRandomDec = randFromDouble.multiply(max);
-        return actualRandomDec.setScale(scale, BigDecimal.ROUND_FLOOR);
+        return actualRandomDec.setScale(scale, RoundingMode.HALF_UP);
     }
 
 

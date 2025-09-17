@@ -5,6 +5,8 @@ import java.util.Objects;
 
 public class MasterData extends CSVData{
 
+    public static final int NUMBER_OF_MASTER_DATA_FIELDS = 20;
+
     private String city;
     private String street;
     private String postCode;
@@ -23,8 +25,6 @@ public class MasterData extends CSVData{
     private Integer soundOptimization;
     private Boolean isBiomassBonus;
     private Boolean isBiomassTechnologyBonus;
-
-    public static final int NUMBER_OF_MASTER_DATA_FIELDS = 20;
 
     public MasterData() {
     }

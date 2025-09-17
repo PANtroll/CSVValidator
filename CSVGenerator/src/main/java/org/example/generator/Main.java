@@ -1,3 +1,5 @@
+package org.example.generator;
+
 import java.util.Date;
 
 public class Main {

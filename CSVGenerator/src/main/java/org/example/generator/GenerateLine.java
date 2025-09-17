@@ -1,4 +1,6 @@
-import randomizer.*;
+package org.example.generator;
+
+import org.example.generator.randomizer.*;
 
 import java.math.BigDecimal;
 import java.text.DateFormat;
@@ -24,13 +26,6 @@ public class GenerateLine {
     private final Generable<Date> randomDate = new RandomDate();
     private final Generable<String> randomPlantType = new RandomPlantType();
     private final ActualDataHelper actualDataHelper = new ActualDataHelper();
-
-    public String generateMetaData() {
-        StringBuilder stringBuilder = new StringBuilder();
-
-
-        return stringBuilder.toString();
-    }
 
     public String generateLineSectionFirst() {
         StringBuilder stringBuilder = new StringBuilder();

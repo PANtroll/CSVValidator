@@ -31,7 +31,7 @@ public class ValidationUtil {
             int year = Integer.parseInt(dataParts[2]);
             return checkDate(validationContainer, columnName, day, month, year);
         }
-        catch (NumberFormatException e){
+        catch (NumberFormatException _){
             validationContainer.errors().add(INVALID_X_FORMAT_IN_LINE_X);
         }
         return null;
@@ -47,15 +47,9 @@ public class ValidationUtil {
                 validationContainer.errors().add(String.format(INVALID_X_IN_LINE_X, columnName, validationContainer.lineNumber()));
             }
             return Date.from(localDateTime.toInstant(ZoneOffset.UTC));
-        } catch (Exception e) {
+        } catch (Exception _) {
             validationContainer.errors().add(String.format(INVALID_X_FORMAT_IN_LINE_X, columnName, validationContainer.lineNumber()));
         }
         return null;
     }
-
-    public static Date isValidDate(String date){
-
-        return validateDate(date, new ValidationContainer(null, null, null, new HashSet<>(), null, 0), null);
-    }
-
 }

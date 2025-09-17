@@ -1,4 +1,4 @@
-package randomizer;
+package org.example.generator.randomizer;
 
 public interface Generable<T> {
 

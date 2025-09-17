@@ -1,8 +1,11 @@
-package randomizer;
+package org.example.generator.randomizer;
 
 import java.util.Random;
 
 public class RandomString implements Generable<String> {
+
+    public static final Random random = new Random();
+
     /**
      * Generate a random alphabetic String
      * @param args 1 argument: word size -1
@@ -12,7 +15,6 @@ public class RandomString implements Generable<String> {
     public String generate(String... args) {
         int leftLimit = 97; // letter 'a'
         int rightLimit = 122; // letter 'z'
-        Random random = new Random();
         int targetStringLength = Integer.parseInt(args[0]);
 
         return random.ints(leftLimit, rightLimit + 1)

@@ -1,3 +1,5 @@
+package org.example.generator;
+
 import java.io.*;
 
 public class GenerateCSVFile {
@@ -25,7 +27,7 @@ public class GenerateCSVFile {
                 }
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            throw new IllegalStateException(e);
         }
         return newFile;
     }

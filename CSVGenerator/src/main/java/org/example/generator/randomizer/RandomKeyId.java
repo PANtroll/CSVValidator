@@ -1,4 +1,4 @@
-package randomizer;
+package org.example.generator.randomizer;
 
 import java.util.*;
 

@@ -5,14 +5,14 @@ import java.util.Objects;
 
 public class ActualData extends CSVData{
 
+    public static final int NUMBER_OF_ACTUAL_DATA_FIELDS = 8;
+
     private DataReportTypeEnum dataReportType;
     private Integer year;
     private Integer month;
     private Integer day;
     private BigDecimal quantity;
     private BigDecimal amount;
-
-    public static final int NUMBER_OF_ACTUAL_DATA_FIELDS = 8;
 
     public DataReportTypeEnum getDataReportType() {
         return dataReportType;

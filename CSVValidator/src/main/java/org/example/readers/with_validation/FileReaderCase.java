@@ -17,7 +17,6 @@ import java.util.Set;
 public class FileReaderCase extends BaseReader implements CSVImport {
 
     public static final char NEW_LINE_CHAR = '\n';
-    public static final String NEW_LINE = "\n";
     public static final char CARRIAGE_RETURN_CHAR = '\r';
     private final boolean isLogging;
 

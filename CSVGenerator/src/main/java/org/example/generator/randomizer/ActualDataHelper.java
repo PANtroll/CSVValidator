@@ -1,11 +1,11 @@
-package randomizer;
+package org.example.generator.randomizer;
 
 import java.util.HashSet;
 import java.util.Set;
 
 public class ActualDataHelper {
 
-    private final Set<ActualData> existingValues = new HashSet<ActualData>();
+    private final Set<ActualData> existingValues = new HashSet<>();
 
     public boolean checkUniqueness(String masterKey, String dataReportType, String year, String month, String day){
         ActualData actualData = new ActualData(masterKey, dataReportType, year, month, day);
